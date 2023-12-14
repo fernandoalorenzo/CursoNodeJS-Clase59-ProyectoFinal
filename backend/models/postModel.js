@@ -2,34 +2,33 @@ import mongoose from "mongoose";
 
 const postSchema = mongoose.Schema(
 	{
-		titulo: 
-		{
+		titulo: {
 			type: String,
 			required: true,
 		},
-		descripcion:
-		{
+		descripcion: {
 			type: String,
 			required: true,
 		},
-		imagen:
-		{
+		imagen: {
 			type: String,
 			required: true,
 		},
-		comentarios:
-		{
-			usuario:
+		comentarios: [
 			{
-				type: String,
-				required: false,
-			},
-			contenido:
-			{
-				type: String,
-				required: false,
+				usuario: {
+					type: String,
+					required: true,
+				}, 
+				contenido: {
+					type: String,
+					required: true,
+				},
 			}
-		}
+		],
+	},
+	{
+		timestamps: true,
 	}
 );
 
