@@ -1,7 +1,7 @@
 import { useState } from "react";
-import "../../src/App.css";
+import "../../App.css";
 import Menu from "../menu/Menu";
-import Option from "../menu/Pagina";
+import Option from "../pages/Pagina";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 
