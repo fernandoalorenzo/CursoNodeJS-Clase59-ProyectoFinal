@@ -18,13 +18,13 @@ const postSchema = mongoose.Schema(
 			{
 				usuario: {
 					type: String,
-					required: true,
-				}, 
+					default: ""
+				},
 				contenido: {
 					type: String,
-					required: true,
+					default: ""
 				},
-			}
+			},
 		],
 	},
 	{
@@ -32,4 +32,5 @@ const postSchema = mongoose.Schema(
 	}
 );
 
-export const Post = mongoose.model("Posts", postSchema);
+const Post = mongoose.model("Posts", postSchema);
+export default Post;
