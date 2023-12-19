@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
+import CardsList from "../cards/CardsList";
 
 const Menu = (props) => {
 	const lorem =
@@ -10,7 +11,7 @@ const Menu = (props) => {
 			header: "Encabezado Home",
 			linktext: "Inicio",
 			title: "Título Home",
-			content: "Contenido Home",
+			content: {CardsList},
 		},
 		{
 			header: "Configuración",
