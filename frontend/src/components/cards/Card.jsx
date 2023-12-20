@@ -1,18 +1,13 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-// import Modal from "./CardModalInfo";
+import Modal from "./CardModalInfo";
 
 const Card = ({ titulo, imagen, descripcion }) => {
-	// const [modal, setModal] = useState(false);
+	const [modal, setModal] = useState(false);
 	// const [post, setPost] = useState([]);
+	const [tempData, setTempData] = useState([]);
 
-	// const getPost = (titulo, descripcion, imagen) => {
-	// 	let post = [titulo, descripcion, imagen];
-	// 	setPost( item => [1, ...post]);
-	// 	// setPost(post);
-	// 	return setModal(true);
-	// }
 	return (
 		<>
 			<div className="card">
@@ -26,20 +21,21 @@ const Card = ({ titulo, imagen, descripcion }) => {
 					<p className="card-text">{descripcion}</p>
 					<button
 						className="btn btn-primary"
-						// onClick={getPost(
-						// 	titulo,
-						// 	descripcion,
-						// 	imagen
-						// )}
-						>
+						onClick={() => setModal(true)}>
 						+ Info
 					</button>
 				</div>
 			</div>
-			{/* {
-				modal === true ? <Modal /> : ""
-			}
-			<Modal /> */}
+			{modal === true ? (
+				<Modal
+					titulo={titulo}
+					descripcion={descripcion}
+					imagen={imagen}
+					onClose={() => setModal(false)}
+				/>
+			) : (
+				""
+			)}
 		</>
 	);
 };

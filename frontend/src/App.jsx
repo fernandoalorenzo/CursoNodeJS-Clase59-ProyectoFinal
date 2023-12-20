@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/home/Home"
 // import PostsTable from "./components/pages/PostsTable";
 import CardsList from "./components/cards/CardsList";
+import CardsGPT from "./components/cards2/Card";
 import "./styles/styles.css";
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
 				<Route path="/" element={<Home />} />
 				{/* <Route path="/PostsTable" element={<PostsTable />} /> */}
 				<Route path="/CardsList" element={<CardsList />} />
+				<Route path="/CardsGPT" element={<CardsGPT />} />
 				{/* <Route path="*" element={<NoDisponible />} /> */}
 			</Routes>
 		</Router>

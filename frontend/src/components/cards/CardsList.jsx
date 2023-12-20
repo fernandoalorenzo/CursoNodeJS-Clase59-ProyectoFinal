@@ -1,11 +1,16 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import Card from "./Card.jsx";
+import CardModalInfo from "./CardModalInfo.jsx";
 
 const CardsList = (posts) => {
 	const [data, setData] = useState([]);
-	const [selectedCard, setSelectedCard] = useState(null);
-	const [modalVisible, setModalVisible] = useState(false);
+	// const [selectedCard, setSelectedCard] = useState(null);
+	// const [modalVisible, setModalVisible] = useState(false);
+	const [modal, setModal] = useState(false);
+	const titulo = posts.titulo;
+	const imagen = posts.imagen;
+	const descripcion = posts.descripcion;
 
 	const fetchData = async () => {
 		try {
@@ -14,24 +19,18 @@ const CardsList = (posts) => {
 				throw new Error(`HTTP error! Status: ${response.status}`);
 			}
 			const data = await response.json();
-			// console.log(data.data);
+			console.log(data.data);
 			setData(data.data);
+			return setModal(true);
 		} catch (error) {
 			console.error("Error al intentar obtener datos: ", error);
 		}
+		
 	};
 
 	useEffect(() => {
 		fetchData();
 	}, []);
-
-	const handleInfoClick = (card) => {
-		console.log("Info de la tarjeta:", card);
-		console.log("Modal visible antes:", modalVisible);
-		setSelectedCard(card);
-		setModalVisible(true);
-		console.log("Modal visible despues:", modalVisible);
-	};
 
 	return (
 		<>
@@ -47,49 +46,11 @@ const CardsList = (posts) => {
 									titulo={card.titulo}
 									descripcion={card.descripcion}
 									imagen={card.imagen}
-									onInfoClick={() => handleInfoClick(card)}
+									onInfoClick={() => setModal(true)}
 								/>
 							</div>
 						</div>
 					))}
-
-					{/* Modal de Bootstrap para mostrar información detallada */}
-					{selectedCard && (
-						<div
-							className={`modal ${modalVisible ? "show" : ""}`}
-							tabIndex="-1"
-							role="dialog">
-							<div className="modal-dialog" role="document">
-								<div className="modal-content">
-									<div className="modal-header">
-										<h5 className="modal-title">
-											{selectedCard.titulo}
-										</h5>
-										<button
-											type="button"
-											className="close"
-											aria-label="Close"
-											onClick={() => {
-												setSelectedCard(null);
-												setModalVisible(false);
-											}}>
-											<span aria-hidden="true">
-												&times;
-											</span>
-										</button>
-									</div>
-									<div className="modal-body">
-										<img
-											src={selectedCard.imagen}
-											className="img-fluid"
-											alt={selectedCard.titulo}
-										/>
-										<p>{selectedCard.descripcion}</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					)}
 				</div>
 			</div>
 		</>

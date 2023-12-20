@@ -1,52 +1,59 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { Component } from "react";
+import CardsList from "./CardsList";
 
 export default class Modal extends Component {
 	render() {
 		let modalStyle = {
 			display:  "block",
-			backgroundColor: "rgba(0, 0, 0, 0.5)",
+			backgroundColor: "rgba(0, 0, 0, 0.8)",
 		};
 
 		return (
-			<div className="modal show fade in" style={modalStyle} role="dialog">
+			<div
+				className="modal show fade in"
+				tabIndex="-1"
+				style={modalStyle}>
 				<div className="modal-dialog">
 					<div className="modal-content">
-						<div className="class-header">
-							<h5 className="modal-title"> TITULO </h5>
+						<div className="modal-header">
+							<h5 className="modal-title">
+								{this.props.titulo}{" "}
+							</h5>
 							<button
 								type="button"
-								className="btn-close"></button>
-                        </div>
-                        <div className="modal-body">
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Quisquam nisi officiis, a
-                                dignissimos labore animi ex dolor.
-                                Laboriosam iste aperiam, nulla animi ipsum,
-                                at expedita ipsam corporis deleniti facilis
-                                dolorum? Repudiandae est, perspiciatis
-                                doloremque rerum exercitationem alias velit
-                                excepturi cumque cupiditate quia voluptatem
-                                deleniti fuga saepe esse iure tenetur
-                                maxime. Provident nisi aliquam minus eius
-                                repellendus fugit quia sapiente accusantium.
-                                Temporibus quod maxime est fuga, numquam
-                                esse corporis praesentium facilis dolorem
-                                incidunt, repellendus quasi illo. Nisi
-                                similique libero adipisci, molestiae soluta
-                                quibusdam ab. Dolor voluptatum similique
-                                provident aliquam! Quasi, eos. Officia vero
-                                deleniti dicta saepe sit ipsam adipisci,
-                                quasi nisi totam ipsum assumenda ullam
-                                delectus amet eveniet incidunt, eum
-                                reiciendis aliquam. Quas, quibusdam soluta
-                                id exercitationem iure tenetur debitis quis.
-                            </p>
-                        </div>
+								className="btn-close"
+								onClick={() => this.props.onClose()}></button>
+						</div>
+						<div className="modal-body">
+							<img
+								src={this.props.imagen}
+								className="card-img-top card-img"
+								alt={this.props.titulo}
+							/>
+							<p className="mt-3 text-start">
+                                {this.props.descripcion}
+                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ullam dignissimos corrupti quisquam quidem quae saepe autem exercitationem officiis ea a, quo, qui quasi repudiandae perferendis? Delectus blanditiis quas id quod!
+                                Veniam, quidem inventore perspiciatis repellendus iste officiis natus odit ipsum suscipit fuga, temporibus cumque sint. Neque nisi optio assumenda ullam explicabo delectus facilis facere, asperiores consectetur natus nemo excepturi amet?
+                                Natus dolorum quas vero, a adipisci doloribus. Ratione a, doloremque, obcaecati quidem dignissimos omnis dicta distinctio animi nam voluptate doloribus repellat expedita ullam amet asperiores eum, unde labore tempora laborum?
+							</p>
+						</div>
+						<div className="modal-footer">
+							<button
+								type="button"
+								className="btn btn-secondary"
+								data-bs-dismiss="modal"
+								onClick={() => this.props.onClose()}>
+								Cerrar
+							</button>
+							<button type="button" className="btn btn-primary">
+								Guardar
+							</button>
+						</div>
 					</div>
-                </div>
-            </div>
+				</div>
+			</div>
 		);
 	}
 }
