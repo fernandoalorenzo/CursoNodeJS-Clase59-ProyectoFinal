@@ -5,7 +5,6 @@ import Modal from "./CardModalInfo";
 
 const Card = ({ titulo, imagen, descripcion }) => {
 	const [modal, setModal] = useState(false);
-	// const [post, setPost] = useState([]);
 	const [tempData, setTempData] = useState([]);
 
 	return (

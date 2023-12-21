@@ -1,16 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import Card from "./Card.jsx";
-import CardModalInfo from "./CardModalInfo.jsx";
 
 const CardsList = (posts) => {
 	const [data, setData] = useState([]);
-	// const [selectedCard, setSelectedCard] = useState(null);
-	// const [modalVisible, setModalVisible] = useState(false);
 	const [modal, setModal] = useState(false);
-	const titulo = posts.titulo;
-	const imagen = posts.imagen;
-	const descripcion = posts.descripcion;
 
 	const fetchData = async () => {
 		try {

@@ -32,7 +32,7 @@ const App = () => {
 									<td>
 										<img
 											className="logo-img"
-											src="../../public/logo.png"
+											src="logo.png"
 											alt="logo"
 										/>
 										<h4 className="logo-titulo text-center mt-2">
