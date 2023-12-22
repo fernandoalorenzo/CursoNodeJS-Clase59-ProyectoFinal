@@ -4,9 +4,13 @@ import React from "react";
 
 const CardModalDelete = ({ onCancel, onConfirm }) => {
 	return (
-        // <div className="modal fade show in" tabIndex="-1">
-        <div className="modal fade show" tabIndex="-1" role="dialog" style={{ display: 'block' }}>
-			<div className="modal-dialog">
+		// <div className="modal fade show in" tabIndex="-1">
+		<div
+			className="modal fade show"
+			tabIndex="-1"
+			role="dialog"
+			style={{ display: "block" }}>
+			<div className="modal-dialog modal-dialog-centered">
 				<div className="modal-content">
 					<div className="modal-header">
 						<h5 className="modal-title">Confirmar eliminación</h5>

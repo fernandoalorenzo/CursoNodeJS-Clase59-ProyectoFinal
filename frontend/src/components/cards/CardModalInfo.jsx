@@ -44,7 +44,7 @@ export default function Modal(props) {
 				className="modal show fade in"
 				tabIndex="-1"
 				style={modalStyle}>
-				<div className="modal-dialog">
+				<div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title">{props.titulo} </h5>

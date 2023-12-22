@@ -75,7 +75,7 @@ const ModalAgregar = (props) => {
 
 	return (
 		<div className="modal show fade in" tabIndex="-1" style={modalStyle}>
-			<div className="modal-dialog">
+			<div className="modal-dialog modal-dialog-centered">
 				<div className="modal-content">
 					<div className="modal-header">
 						<h5 className="modal-title">Agregar Post</h5>
