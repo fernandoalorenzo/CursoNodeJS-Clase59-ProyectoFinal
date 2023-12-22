@@ -90,7 +90,7 @@ export default class Modal extends Component {
 						<div className="modal-body">
 							<img
 								src={this.props.imagen}
-								className="card-img-top card-img-modal"
+								className="card-img-top card-img-modal-info"
 								alt={this.props.titulo}
 							/>
 							<p className="mt-3 text-start">

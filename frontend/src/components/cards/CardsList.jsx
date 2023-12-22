@@ -16,9 +16,10 @@ const CardsList = (posts) => {
 		setModalAgregar(true);
 	};
 
-	const closeModalAgregar = () => {
+	const closeModalAgregar = async () => {
 		setModalAgregar(false);
-	}
+		await fetchData();
+	};
 	
 	const fetchData = async () => {
 		try {
@@ -43,7 +44,9 @@ const CardsList = (posts) => {
 	return (
 		<>
 			<div className="container-sm">
-				<div className="justify-content-end text-end mb-2 mr-5" style={{ marginRight: "11rem" }}>
+				<div
+					className="justify-content-end text-end mb-2 mr-5"
+					style={{ marginRight: "11rem" }}>
 					<button
 						className="btn btn-primary align-self-end"
 						onClick={openModalAgregar}>
@@ -69,7 +72,10 @@ const CardsList = (posts) => {
 				</div>
 			</div>
 			{modalAgregar === true ? (
-				<CardModalAgregar onClose={closeModalAgregar} />
+				<CardModalAgregar
+					onClose={closeModalAgregar}
+					onSave={fetchData}
+				/>
 			) : (
 				""
 			)}

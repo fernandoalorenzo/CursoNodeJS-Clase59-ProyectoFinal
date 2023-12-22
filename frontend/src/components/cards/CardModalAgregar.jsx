@@ -5,45 +5,67 @@ import React, { useState } from "react";
 const ModalAgregar = (props) => {
 	const [titulo, setTitulo] = useState("");
 	const [descripcion, setDescripcion] = useState("");
-	const [imagen, setImagen] = useState("");
 	const [imagenUrl, setImagenUrl] = useState("");
 
 	const handleImagenUrlChange = (event) => {
 		setImagenUrl(event.target.value);
 	};
 	
-	const handleGuardarPost = () => {
+	const handleGuardarPost = async () => {
 		const data = {
 			titulo,
 			descripcion,
-			imagen
+			imagen: imagenUrl
 		};
 
-		fetch("http://localhost:5000/posts", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(data),
-		})
-		.then((response) => {
-			if (!response.ok) {
-				throw new Error("Hubo un error en la petición.");
-			}
-			return response.json();
-		})
+		// fetch("http://127.0.0.1:5000/posts", {
+		// 	method: "POST",
+		// 	headers: {
+		// 		"Content-Type": "application/json",
+		// 	},
+		// 	body: JSON.stringify(data),
+		// })
+		// .then((response) => {
+		// 	if (!response.ok) {
+		// 		throw new Error("Hubo un error en la petición.");
+		// 	}
+		// 	return response.json();
+			
+		// })
+
+			
 		// .then(() => {
 			// enqueueSnackbar("Operación realizada exitosamente!", {
 			// 	variant: "success",
 			// });
 			// navigate("/");
 		// })
-		.catch((error) => {
-			// enqueueSnackbar("Error", { variant: "error" });
-			console.error("Error:", error);
-		});
+
+		// .catch((error) => {
+		// 	// enqueueSnackbar("Error", { variant: "error" });
+		// 	console.error("Error:", error);
+		// });
+
 		// CIERRA EL MODAL DESPUES DE GUARDAR
 		// props.onClose();
+		try {
+			const response = await fetch("http://127.0.0.1:5000/posts", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(data),
+			});
+
+			if (!response.ok) {
+				throw new Error("Hubo un error en la petición.");
+			}
+
+			// CIERRA EL MODAL DESPUÉS DE GUARDAR
+			props.onClose();
+		} catch (error) {
+			console.error("Error:", error);
+		}
 	};
 
 	let modalStyle = {
@@ -62,7 +84,7 @@ const ModalAgregar = (props) => {
 							className="btn-close"
 							onClick={props.onClose}></button>
 					</div>
-					<div className="d-grid modal-body">
+					<div className="d-grid modal-body ">
 						<label className="form-label text-start">Título</label>
 						<input
 							className="form-control"
@@ -89,8 +111,29 @@ const ModalAgregar = (props) => {
 							onChange={handleImagenUrlChange}
 						/>
 
-						{imagenUrl && <img src={imagenUrl} alt="Imagen" />}
-						
+						<div
+							className="card mt-3 bottom-0 start-50 translate-middle-x"
+							style={{ width: "12rem" }}>
+							<div className="card-header p-1">
+								<p className="p-0 m-0 fw-bold">Vista Previa</p>
+							</div>
+							<div className="card-body p-0">
+								{imagenUrl.length === 0 && (
+									<img
+										className="card-img-top p-5"
+										src="noimage.png"
+										alt="Imagen"
+									/>
+								)}
+								{imagenUrl && (
+									<img
+										className="card-img-top"
+										src={imagenUrl}
+										alt="Imagen"
+									/>
+								)}
+							</div>
+						</div>
 					</div>
 					<div className="modal-footer">
 						<div className="d-grid gap-2 d-md-flex justify-content-md-end">
