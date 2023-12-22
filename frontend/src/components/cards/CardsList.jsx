@@ -1,11 +1,25 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import Card from "./Card.jsx";
+import CardModalAgregar from "./CardModalAgregar.jsx";
 
 const CardsList = (posts) => {
 	const [data, setData] = useState([]);
-	const [modal, setModal] = useState(false);
+	const [modalInfo, setModalInfo] = useState(false);
+	const [modalAgregar, setModalAgregar] = useState(false);
+	
+	const titulo = posts.titulo;
+	const imagen = posts.imagen;
+	const descripcion = posts.descripcion
 
+	const openModalAgregar = () => {
+		setModalAgregar(true);
+	};
+
+	const closeModalAgregar = () => {
+		setModalAgregar(false);
+	}
+	
 	const fetchData = async () => {
 		try {
 			const response = await fetch("http://127.0.0.1:5000/posts");
@@ -15,7 +29,7 @@ const CardsList = (posts) => {
 			const data = await response.json();
 			console.log(data.data);
 			setData(data.data);
-			return setModal(true);
+			return setModalInfo(true);
 		} catch (error) {
 			console.error("Error al intentar obtener datos: ", error);
 		}
@@ -28,7 +42,14 @@ const CardsList = (posts) => {
 
 	return (
 		<>
-			<div className="container">
+			<div className="container-sm">
+				<div className="justify-content-end text-end mb-2 mr-5" style={{ marginRight: "11rem" }}>
+					<button
+						className="btn btn-primary align-self-end"
+						onClick={openModalAgregar}>
+						Nuevo Post
+					</button>
+				</div>
 				<div className="row justify-content-center row-cols-auto">
 					{data.map((card) => (
 						<div
@@ -40,13 +61,18 @@ const CardsList = (posts) => {
 									titulo={card.titulo}
 									descripcion={card.descripcion}
 									imagen={card.imagen}
-									onInfoClick={() => setModal(true)}
+									onInfoClick={() => setModalInfo(true)}
 								/>
 							</div>
 						</div>
 					))}
 				</div>
 			</div>
+			{modalAgregar === true ? (
+				<CardModalAgregar onClose={closeModalAgregar} />
+			) : (
+				""
+			)}
 		</>
 	);
 };

@@ -90,12 +90,12 @@ export default class Modal extends Component {
 						<div className="modal-body">
 							<img
 								src={this.props.imagen}
-								className="card-img-top card-img"
+								className="card-img-top card-img-modal"
 								alt={this.props.titulo}
 							/>
 							<p className="mt-3 text-start">
-								{this.props.descripcion}
-								{/* Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ullam dignissimos corrupti quisquam quidem quae saepe autem exercitationem officiis ea a, quo, qui quasi repudiandae perferendis? Delectus blanditiis quas id quod!
+                                {this.props.descripcion}
+                                {/* Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ullam dignissimos corrupti quisquam quidem quae saepe autem exercitationem officiis ea a, quo, qui quasi repudiandae perferendis? Delectus blanditiis quas id quod!
                                 Veniam, quidem inventore perspiciatis repellendus iste officiis natus odit ipsum suscipit fuga, temporibus cumque sint. Neque nisi optio assumenda ullam explicabo delectus facilis facere, asperiores consectetur natus nemo excepturi amet?
                                 Natus dolorum quas vero, a adipisci doloribus. Ratione a, doloremque, obcaecati quidem dignissimos omnis dicta distinctio animi nam voluptate doloribus repellat expedita ullam amet asperiores eum, unde labore tempora laborum? */}
 							</p>

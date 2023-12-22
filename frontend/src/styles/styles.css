@@ -168,8 +168,9 @@ button:focus-visible {
 }
 
 .card-img-modal {
-  /* min-height: 20rem;
-  max-height: 20rem; */
+  /* min-height: 18em; */
+  /* max-height: 12rem; */
+
   object-fit: cover;
   object-position: center;
   width: 100%

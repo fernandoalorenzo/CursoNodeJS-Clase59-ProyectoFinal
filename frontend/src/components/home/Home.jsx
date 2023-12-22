@@ -52,13 +52,13 @@ const App = () => {
 							</tbody>
 						</table>
 					</div>
-					<div className="col-9 content">
+					<div className="col-9 content my-3">
 						<div className="row">
 							<CardsList />
 						</div>
 					</div>
 				</div>
-				<div className="row sticky-bottom">
+				<div className="row sticky-bottom mt-5">
 					<div className="col-12">
 						<Footer />
 					</div>
