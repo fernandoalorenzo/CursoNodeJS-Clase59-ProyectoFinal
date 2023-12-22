@@ -8,10 +8,6 @@ const CardsList = (posts) => {
 	const [modalInfo, setModalInfo] = useState(false);
 	const [modalAgregar, setModalAgregar] = useState(false);
 	
-	const titulo = posts.titulo;
-	const imagen = posts.imagen;
-	const descripcion = posts.descripcion
-
 	const openModalAgregar = () => {
 		setModalAgregar(true);
 	};
@@ -64,7 +60,9 @@ const CardsList = (posts) => {
 									titulo={card.titulo}
 									descripcion={card.descripcion}
 									imagen={card.imagen}
+									_id={card._id}
 									onInfoClick={() => setModalInfo(true)}
+									fetchData={fetchData}
 								/>
 							</div>
 						</div>

@@ -1,41 +1,49 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const CardModalInfoComentarios = ({ comentarios, onAddComentario }) => {
-	const [newComentario, setNewComentario] = useState("");
+const CardModalInfoComments = ({ postId }) => {
+	const [comentarios, setComentarios] = useState([]);
 
-	const handleAddComentario = () => {
-		if (newComentario.trim() !== "") {
-			onAddComentario(newComentario);
-			setNewComentario("");
-		}
-	};
+	useEffect(() => {
+		const fetchComentarios = async () => {
+			try {
+				const response = await fetch(
+					`http://127.0.0.1:5000/comments/${postId}`
+				);
+				if (!response.ok) {
+					throw new Error(`HTTP error! Status: ${response.status}`);
+				}
+				const data = await response.json();
+				setComentarios(data.comentarios);
+			} catch (error) {
+				console.error("Error al intentar obtener comentarios: ", error);
+			}
+		};
+
+		fetchComentarios();
+	}, [postId]);
 
 	return (
-		<div className="mt-3">
-			<h6>Comentarios:</h6>
-			<ul className="list-group">
-				{comentarios.map((comentario, index) => (
-					<li key={index} className="list-group-item">
+		<>
+			{comentarios.length === 0 ? (
+				""
+			) : (
+				<h5 className="card-title text-start">Comentarios ({comentarios.length})</h5>	
+			)} 
+			{comentarios.map((comentario) => (
+				<div className="card mb-3" key={comentario._id}>
+					<div className="card-header text-start p-2">
+						<b className="text-success">{comentario.usuario}</b>{" "}
+						comentó:
+					</div>
+					<div className="card-body text-start p-2 fs-6 fst-italic">
 						{comentario.contenido}
-					</li>
-				))}
-			</ul>
-			<div className="mt-3">
-				<textarea
-					className="form-control"
-					rows="3"
-					value={newComentario}
-					onChange={(e) => setNewComentario(e.target.value)}></textarea>
-				<button
-					className="btn btn-primary mt-2"
-					onClick={handleAddComentario}>
-					Agregar Comentario
-				</button>
-			</div>
-		</div>
+					</div>
+				</div>
+			))}
+		</>
 	);
 };
 
-export default CardModalInfoComentarios;
+export default CardModalInfoComments;

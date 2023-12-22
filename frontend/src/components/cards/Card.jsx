@@ -1,13 +1,11 @@
+/* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import ModalInfo from "./CardModalInfo";
 
-const Card = ({ titulo, imagen, descripcion }) => {
+const Card = ({ titulo, imagen, descripcion, _id , fetchData }) => {
 	const [modalInfo, setModalInfo] = useState(false);
-	// const [post, setPost] = useState([]);
-
-	const [tempData, setTempData] = useState([]);
 
 	return (
 		<>
@@ -24,7 +22,6 @@ const Card = ({ titulo, imagen, descripcion }) => {
 						<button
 							className="btn btn-info justify-self-end"
 							onClick={() => setModalInfo(true)}>
-							{/* <i className="fa-solid fa-angle-right mx-1"></i> */}
 							<i className="fa-solid fa-circle-info fa-fade fa-lg"></i>
 						</button>
 					</div>
@@ -32,10 +29,12 @@ const Card = ({ titulo, imagen, descripcion }) => {
 			</div>
 			{modalInfo === true ? (
 				<ModalInfo
+					_id={_id}
 					titulo={titulo}
 					descripcion={descripcion}
 					imagen={imagen}
 					onClose={() => setModalInfo(false)}
+					fetchData={fetchData}
 				/>
 			) : (
 				""
