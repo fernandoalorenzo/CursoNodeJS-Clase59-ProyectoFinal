@@ -10,21 +10,28 @@ const Card = ({ titulo, imagen, descripcion, _id , fetchData }) => {
 	return (
 		<>
 			<div className="card">
+				<div className="card-header">
+					<div className="row">
+						<div className="col">
+							<h5 className="card-title text-start">{titulo}</h5>
+						</div>
+						<div className="col-md-2 me-3">
+							<i
+								className="btn fa-solid fa-circle-info fa-fade fa-xl"
+								style={{ color: "#1100ff" }}
+								onClick={() => setModalInfo(true)}>
+							</i>
+						</div>
+					</div>
+				</div>
 				<img
 					src={imagen}
 					className="card-img-top card-img"
 					alt={titulo}
 				/>
 				<div className="card-body">
-					<h5 className="card-title">{titulo}</h5>
 					<p className="card-text text-start">{descripcion}</p>
-					<div className="d-flex justify-content-end">
-						<button
-							className="btn btn-info justify-self-end"
-							onClick={() => setModalInfo(true)}>
-							<i className="fa-solid fa-circle-info fa-fade fa-lg"></i>
-						</button>
-					</div>
+					<div className="d-flex justify-content-end"></div>
 				</div>
 			</div>
 			{modalInfo === true ? (

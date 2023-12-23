@@ -2,9 +2,8 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 
-const CardModalDelete = ({ onCancel, onConfirm }) => {
+const CardModalDelete = ({ onCancel, onConfirm, tipoEliminacion }) => {
 	return (
-		// <div className="modal fade show in" tabIndex="-1">
 		<div
 			className="modal fade show"
 			tabIndex="-1"
@@ -20,7 +19,10 @@ const CardModalDelete = ({ onCancel, onConfirm }) => {
 							onClick={onCancel}></button>
 					</div>
 					<div className="modal-body">
-						<p>¿Estás seguro de que deseas eliminar este posteo?</p>
+						<p>
+							¿Estás seguro de que deseas eliminar este{" "}
+							{tipoEliminacion}?
+						</p>
 					</div>
 					<div className="modal-footer">
 						<button

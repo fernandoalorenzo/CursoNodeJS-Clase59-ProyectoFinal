@@ -39,15 +39,16 @@ const CardsList = (posts) => {
 
 	return (
 		<>
-			<div className="container-sm">
-				<div
-					className="justify-content-end text-end mb-2 mr-5"
-					style={{ marginRight: "11rem" }}>
-					<button
-						className="btn btn-primary align-self-end"
-						onClick={openModalAgregar}>
-						Nuevo Post
-					</button>
+			<div className="container-sm my-4">
+				<div className="row justify-content-center row-cols-auto mx-4">
+					<div className="col-md-10"></div>
+					<div className="col-md-2">
+						<button
+							className="btn btn-primary align-self-end"
+							onClick={openModalAgregar}>
+							Nuevo Post
+						</button>
+					</div>
 				</div>
 				<div className="row justify-content-center row-cols-auto">
 					{data.map((card) => (

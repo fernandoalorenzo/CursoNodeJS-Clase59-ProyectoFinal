@@ -5,7 +5,6 @@ import CardModalInfoComments from "./CardModalInfoComments";
 import CardModalDelete from "./CardModalConfirmDelete";
 
 export default function Modal(props) {
-	const [modalInfo, setModalInfo] = useState(false);
 	const [cardModalDelete, setCardModalDelete] = useState(false);
 
 	const handleDeleteClick = () => {
@@ -46,12 +45,29 @@ export default function Modal(props) {
 				style={modalStyle}>
 				<div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 					<div className="modal-content">
-						<div className="modal-header">
-							<h5 className="modal-title">{props.titulo} </h5>
-							<button
-								type="button"
-								className="btn-close"
-								onClick={() => props.onClose()}></button>
+						<div className="card-header">
+							<div className="row pt-2">
+								<div className="col">
+									<h5 className="card-title text-start">
+										{props.titulo}
+									</h5>
+								</div>
+								<div className="col-md-1 me-3 align-items-end">
+									<i
+										className="btn bg-danger fa-regular fa-trash-can"
+										style={{ color: "#ffffff" }}
+										onClick={handleDeleteClick}
+										title="Eliminar posteo"></i>
+								</div>
+								<div className="col-md-1 me-3 align-items-end">
+									<button
+										type="button"
+										className="btn-close end-0 tex-end"
+										onClick={() =>
+											props.onClose()
+										}></button>
+								</div>
+							</div>
 						</div>
 						<div className="modal-body">
 							<img
@@ -63,18 +79,7 @@ export default function Modal(props) {
 								{props.descripcion}
 							</p>
 
-							{/* COMENTARIOS */}
 							<CardModalInfoComments postId={props._id} />
-						</div>
-						<div className="modal-footer">
-							<button
-								type="button"
-								className="btn end-0"
-								onClick={handleDeleteClick}>
-								<i
-									className="fa-solid fa-trash-can"
-									style={{ color: "#ff0000" }}></i>
-							</button>{" "}
 						</div>
 					</div>
 				</div>
@@ -84,6 +89,7 @@ export default function Modal(props) {
 				<CardModalDelete
 					onConfirm={handleDelete}
 					onCancel={handleCancelDelete}
+					tipoEliminacion={"posteo"}
 				/>
 			) : (
 				""
