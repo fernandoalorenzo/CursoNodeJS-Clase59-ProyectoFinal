@@ -7,9 +7,11 @@ import ModalInfo from "./CardModalInfo";
 const Card = ({ titulo, imagen, descripcion, _id , fetchData }) => {
 	const [modalInfo, setModalInfo] = useState(false);
 
+	const maxDescriptionLength = 100;
+
 	return (
 		<>
-			<div className="card">
+			<div className="card" style={{ minHeight: "23rem", maxHeight: "23rem" }}>
 				<div className="card-header">
 					<div className="row">
 						<div className="col">
@@ -19,8 +21,7 @@ const Card = ({ titulo, imagen, descripcion, _id , fetchData }) => {
 							<i
 								className="btn fa-solid fa-circle-info fa-fade fa-xl"
 								style={{ color: "#1100ff" }}
-								onClick={() => setModalInfo(true)}>
-							</i>
+								onClick={() => setModalInfo(true)}></i>
 						</div>
 					</div>
 				</div>
@@ -30,8 +31,13 @@ const Card = ({ titulo, imagen, descripcion, _id , fetchData }) => {
 					alt={titulo}
 				/>
 				<div className="card-body">
-					<p className="card-text text-start">{descripcion}</p>
-					<div className="d-flex justify-content-end"></div>
+					{descripcion.length > maxDescriptionLength ? (
+						<p className="card-text text-start">{descripcion.slice(0, maxDescriptionLength) + "..."}</p>
+					) : (
+						<p className="card-text text-start">{descripcion}</p>
+					)}
+					{/* <p className="card-text text-start">{descripcion}</p> */}
+					{/* <div className="d-flex justify-content-end"></div> */}
 				</div>
 			</div>
 			{modalInfo === true ? (

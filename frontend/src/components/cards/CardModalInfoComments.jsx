@@ -157,7 +157,9 @@ const CardModalInfoComments = ({ postId }) => {
 										comentario.contenido,
 										comentario._id
 									)
-								}>
+								}
+								disabled={!comentario.contenido.trim()} // Deshabilitar si el contenido está vacío
+							>
 								Guardar
 							</button>
 							<button

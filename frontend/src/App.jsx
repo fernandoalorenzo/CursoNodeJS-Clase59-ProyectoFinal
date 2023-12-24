@@ -1,21 +1,23 @@
 /* eslint-disable no-unused-vars */
 // import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./components/home/Home"
-// import PostsTable from "./components/pages/PostsTable";
-import CardsList from "./components/cards/CardsList";
+import { BrowserRouter as Router, Routes, Route, BrowserRouter } from "react-router-dom";
+import Navbar from "./components/navbar/Navbar";
+import Home from "./components/pages/Home"
+// import CardsList from "./components/cards/CardsList";
+import Footer from "./components/footer/Footer";
 import "./styles/styles.css";
 
 const App = () => {
 	return (
-		<Router>
-			<Routes>
-				<Route path="/" element={<Home />} />
-				{/* <Route path="/PostsTable" element={<PostsTable />} /> */}
-				<Route path="/CardsList" element={<CardsList />} />
-				{/* <Route path="*" element={<NoDisponible />} /> */}
-			</Routes>
-		</Router>
+		<BrowserRouter>
+			<Navbar />
+				<Routes>
+					<Route path="/" element={<Home />} />
+					{/* <Route path="/CardsList" element={<CardsList />} /> */}
+					{/* <Route path="*" element={<NoDisponible />} /> */}
+				</Routes>
+			<Footer />
+		</BrowserRouter>
 	);
 };
 

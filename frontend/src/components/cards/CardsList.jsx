@@ -39,10 +39,10 @@ const CardsList = (posts) => {
 
 	return (
 		<>
-			<div className="container-sm my-4">
+			<div className="container my-4">
 				<div className="row justify-content-center row-cols-auto mx-4">
-					<div className="col-md-10"></div>
-					<div className="col-md-2">
+					<div className="col-md-6"></div>
+					<div className="col-md-6 text-end">
 						<button
 							className="btn btn-primary align-self-end"
 							onClick={openModalAgregar}>

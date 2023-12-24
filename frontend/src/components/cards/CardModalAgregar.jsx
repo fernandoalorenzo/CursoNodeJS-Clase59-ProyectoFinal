@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const ModalAgregar = (props) => {
 	const [titulo, setTitulo] = useState("");
@@ -11,6 +11,34 @@ const ModalAgregar = (props) => {
 		setImagenUrl(event.target.value);
 	};
 	
+	useEffect(() => {
+		const cargarDatosExistente = async () => {
+			try {
+				const response = await fetch(
+					`http://127.0.0.1:5000/posts/${props.postId}`
+				);
+
+				if (!response.ok) {
+					throw new Error(`HTTP error! Status: ${response.status}`);
+				}
+
+				const data = await response.json();
+
+				setTitulo(data.titulo);
+				setDescripcion(data.descripcion);
+				setImagenUrl(data.imagen);
+			} catch (error) {
+				console.error(
+					"Error al intentar obtener datos para editar: ",
+					error
+				);
+			}
+		};
+		if (props.isEdit && props.postId) {
+			cargarDatosExistente();
+		}
+	}, [props.isEdit, props.postId]);
+
 	const handleGuardarPost = async () => {
 		const data = {
 			titulo,
@@ -18,36 +46,12 @@ const ModalAgregar = (props) => {
 			imagen: imagenUrl
 		};
 
-		// fetch("http://127.0.0.1:5000/posts", {
-		// 	method: "POST",
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 	},
-		// 	body: JSON.stringify(data),
-		// })
-		// .then((response) => {
-		// 	if (!response.ok) {
-		// 		throw new Error("Hubo un error en la petición.");
-		// 	}
-		// 	return response.json();
-			
-		// })
+		// const url = props.isEdit
+		// 	? `http://127.0.0.1:5000/posts/${props.postId}`
+		// 	: "http://127.0.0.1:5000/posts";
 
-			
-		// .then(() => {
-			// enqueueSnackbar("Operación realizada exitosamente!", {
-			// 	variant: "success",
-			// });
-			// navigate("/");
-		// })
+		// const method = props.isEdit ? "PUT" : "POST";
 
-		// .catch((error) => {
-		// 	// enqueueSnackbar("Error", { variant: "error" });
-		// 	console.error("Error:", error);
-		// });
-
-		// CIERRA EL MODAL DESPUES DE GUARDAR
-		// props.onClose();
 		try {
 			const response = await fetch("http://127.0.0.1:5000/posts", {
 				method: "POST",
@@ -56,6 +60,14 @@ const ModalAgregar = (props) => {
 				},
 				body: JSON.stringify(data),
 			});
+
+			// const response = await fetch(url, {
+			// 	method,
+			// 	headers: {
+			// 		"Content-Type": "application/json",
+			// 	},
+			// 	body: JSON.stringify(data),
+			// })
 
 			if (!response.ok) {
 				throw new Error("Hubo un error en la petición.");
@@ -75,7 +87,8 @@ const ModalAgregar = (props) => {
 
 	return (
 		<div className="modal show fade in" tabIndex="-1" style={modalStyle}>
-			<div className="modal-dialog modal-dialog-centered" data-bs-target="#staticBackdrop">
+			<div
+				className="modal-dialog modal-dialog-centered">
 				<div className="modal-content">
 					<div className="modal-header">
 						<h5 className="modal-title">Agregar Post</h5>
@@ -95,7 +108,7 @@ const ModalAgregar = (props) => {
 						<label className="form-label text-start mt-4">
 							Descripción
 						</label>
-						<input
+						<textarea
 							className="form-control"
 							type="text"
 							value={descripcion}

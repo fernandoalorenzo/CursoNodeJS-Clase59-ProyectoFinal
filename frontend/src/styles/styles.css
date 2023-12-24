@@ -13,91 +13,31 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
-  width: 100%;
   text-align: center;
-  overflow-x: hidden
-}
-
-header {
-  background-color: #000000;
-  color: white;
-  padding: 15px;
-  text-align: center;
-  top: 0;
-  position: fixed;
-  min-width: 90%;
-  max-width: 90%;
-  min-height: 10%;
-  max-height: 10%;
-  left: 12%;
 }
 
 body {
   place-items: center;
   min-height: 100vh;
-  margin: 0;
-  position: absolute;
-  top: 5rem;
-  bottom: 3.5rem;
-  padding: 0;
-  /* NO HACER SCROLL FONDO CUANDO EL MODAL ESTA ABIERTO */
-  overflow-x: hidden;
-  overflow-y: scroll !important;
-  overflow: hidden;
-  position: fixed;
-
+  padding-top: 7rem;
+  padding-bottom: 3.5rem;
 }
 
 footer {
-  background-color: black;
-  color: white;
-  padding: 15px;
+  color: #e7f253;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding-top: 15px;
+  margin-top: 2%;
   text-align: center;
   align-items: center;
   bottom: 0;
   position: fixed;
-  min-width: 90%;
-  max-width: 90%;
+  min-width: 100%;
+  max-width: 100%;
   height: 3.5rem;
-  left: 12%;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-
-button:hover {
-  border-color: #646cff;
-}
-
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-.nav-item {
-  font-weight: 500;
-  color: #ffffff;
-  text-decoration: inherit;
-}
-
-.nav-item:hover {
-  color: #e7f253;
-  cursor: pointer;
-}
 
 .logo-img {
   width: 8rem;
@@ -108,62 +48,22 @@ button:focus-visible {
 }
 
 .logo-titulo {
-  font-size: 150%;
-  color: #fff700;
+  font-size: 2.8rem;
+  color: #0088ff;
+  padding-left: 1.8rem;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: 700;
 }
 
-.divmenu {
-  margin-left: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.texto {
-  font-size: 1.5rem;
-  color: #1f085e;
-}
-
-.app {
+/* .app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   width: 100%;
   min-width: 100%;
   padding-left: 14rem;
-}
+} */
 
-.sidebar {
-  width: 12%;
-  background-color: #343a40;
-  /* Color Bootstrap dark */
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-}
-
-.sidebar ul {
-  list-style-type: none;
-  padding: 0;
-  color: white;
-  margin-left: 5%;
-}
-
-.sidebar li {
-  padding: 8px;
-  font-size: 1.25rem;
-  text-align: left;
-  color: white;
-}
-
-.content {
-  position: relative;
-  min-width: 88%;
-  max-width: 88%;
-  margin-left: 12%;
-  margin-top: 1%;
-}
 
 .card-img {
   min-height: 12rem;
@@ -176,7 +76,6 @@ button:focus-visible {
 .card-img-modal-info {
   /* min-height: 18em; */
   /* max-height: 12rem; */
-
   object-fit: cover;
   object-position: center;
   width: 100%
@@ -189,6 +88,13 @@ button:focus-visible {
   object-fit: cover;
   object-position: center;
   width: 100%
+}
+
+.nav-item {
+  font-size: 2rem;
+  font-weight: 600;
+  text-decoration: none;
+  
 }
 
 @media (prefers-color-scheme: light) {
