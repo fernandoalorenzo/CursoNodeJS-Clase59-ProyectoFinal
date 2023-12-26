@@ -45,7 +45,7 @@ const RegisterForm = () => {
 						<div className="row d-flex justify-content-center align-items-center pt-5">
 							<div className="col-12 col-md-8 col-lg-6 col-xl-5">
 								<div
-									className="card bg-dark text-white"
+									className="card bg-dark text-white mt-5"
 									style={{ borderRadius: "1rem" }}>
 									<div className="card-body p-4 text-center pb-0">
 										<div className="mb-md-4">
