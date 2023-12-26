@@ -184,7 +184,7 @@ const CardModalInfoComments = ({ postId }) => {
 									className="btn btn-sm btn-primary me-2"
 									onClick={() => handleEdit(comentario._id)}
 									title="Editar comentario">
-									<i className="fa-solid fa-pencil"></i>
+									<i className="fa-solid fa-regular fa-edit"></i>
 								</button>
 								<button
 									className="btn btn-sm btn-danger"

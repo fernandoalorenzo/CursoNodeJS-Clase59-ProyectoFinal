@@ -226,7 +226,13 @@ export default function Modal(props) {
 										<button
 											type="button"
 											className="btn btn-primary"
-											onClick={handleSaveClick}>
+											onClick={handleSaveClick}
+											// DESHABILITA SI TITULO, DESCRIPCION O IMAGEN ESTAN VACIOS
+											disabled={
+												!editedDescription.trim() ||
+												!editedImage.trim() ||
+												!editedTitle.trim()
+											}>
 											Guardar
 										</button>
 									</div>

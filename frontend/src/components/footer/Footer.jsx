@@ -5,7 +5,8 @@ const Footer = () => {
 	return (
 		<footer className="bg-body-tertiary text-center text-lg-start align-items-center bg-primary bg-gradient">
 			<p className="text-center">
-				Powered by Fernando Lorenzo ©{new Date().getFullYear()}
+				Copyright ©{new Date().getFullYear()}. All rights reserved.
+				Powered by Fernando Lorenzo
 			</p>
 		</footer>
 	);

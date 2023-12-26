@@ -3,8 +3,8 @@
 import { BrowserRouter as Router, Routes, Route, BrowserRouter } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
 import Home from "./components/pages/Home"
-// import CardsList from "./components/cards/CardsList";
 import Footer from "./components/footer/Footer";
+import LoginForm from "./components/login/LoginForm";
 import "./styles/styles.css";
 
 const App = () => {
@@ -12,7 +12,8 @@ const App = () => {
 		<BrowserRouter>
 			<Navbar />
 				<Routes>
-					<Route path="/" element={<Home />} />
+				<Route path="/" element={<Home />} />
+					<Route path="/login" element={<LoginForm />} />
 					{/* <Route path="/CardsList" element={<CardsList />} /> */}
 					{/* <Route path="*" element={<NoDisponible />} /> */}
 				</Routes>
