@@ -3,6 +3,17 @@ import User from "../models/userModel.js";
 // Crear un nuevo usuario
 const createUser = async (request, response) => {
 	try {
+		const { email } = request.body;
+
+		// Verificar si el usuario ya existe
+		const existingUser = await User.findOne({ email });
+
+		if (existingUser) {
+			return response
+				.status(400)
+				.json({ message: "El usuario ya existe" });
+		}
+
 		const user = await User.create(request.body);
 
 		return response.status(201).send({
@@ -80,39 +91,11 @@ const deleteUser = async (request, response) => {
 	}
 };
 
-// Login de usuario
-const loginUser = async (request, response) => {
-	try {
-		const { email, password } = request.body;
-
-		// Buscar al usuario por el correo registrado
-		const user = await User.findOne({ email });
-
-		// Si el usuario no existe
-		if (!user) {
-			return response
-				.status(404)
-				.json({ message: "Usuario no encontrado" });
-		}
-
-		// Verificar la contraseña
-		if (user.password !== password) {
-			return response
-				.status(401)
-				.json({ message: "Contraseña incorrecta" });
-		}
-
-		// Aquí puedes agregar la lógica para almacenar información en localStorage si lo deseas
-		// Por ejemplo, response.cookie('token', 'token_value', { httpOnly: true });
-
-		return response
-			.status(200)
-			.json({ message: "Inicio de sesión exitoso", user });
-	} catch (error) {
-		console.log(error.message);
-		response.status(500).send({ message: error.message });
-	}
-};
-
 // Exportamos todas las rutas
-export { createUser, getUsers, getUserById, updateUser, deleteUser, loginUser };
+export {
+	createUser,
+	getUsers,
+	getUserById,
+	updateUser,
+	deleteUser,
+};
