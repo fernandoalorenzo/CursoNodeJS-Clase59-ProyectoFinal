@@ -2,11 +2,15 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import CardModalDelete from "./CardModalConfirmDelete";
+import CardModalAdd from "./CardModalInfoCommentsAdd";
 
 const CardModalInfoComments = ({ postId }) => {
 	const [comentarios, setComentarios] = useState([]);
 	const [editCommentId, setEditCommentId] = useState(null);
 	const [deleteCommentId, setDeleteCommentId] = useState(null);
+
+	// ESTADO DE MODAL PARA NUEVOS COMENTARIOS
+	const [showAddModal, setShowAddModal] = useState(false);
 
 	useEffect(() => {
 		const fetchComentarios = async () => {
@@ -27,7 +31,7 @@ const CardModalInfoComments = ({ postId }) => {
 		fetchComentarios();
 	}, [postId]);
 
-	// Desde aca, todo para editar el comentario
+	// ------------------ Desde aca, todo para editar el comentario ------------------
 	const handleEdit = (commentId) => {
 		setEditCommentId(commentId);
 	};
@@ -61,7 +65,7 @@ const CardModalInfoComments = ({ postId }) => {
 			const updatedData = await updatedResponse.json();
 			setComentarios(updatedData.comentarios);
 
-			// Oculta el formulario de edición
+			// Oculta el formulario de edicion
 			setEditCommentId(null);
 		} catch (error) {
 			console.error(
@@ -85,10 +89,9 @@ const CardModalInfoComments = ({ postId }) => {
 		setEditCommentId(null);
 	};
 
-	// Desde aca, todo para eliminar el comentario
+	// ------------------ Desde aca, todo para eliminar el comentario ------------------
 	const handleConfirmDelete = async () => {
 		try {
-			// Hacer una solicitud DELETE a tu API para eliminar el comentario
 			const response = await fetch(
 				`http://127.0.0.1:5000/comments/${postId}/${deleteCommentId}`,
 				{
@@ -100,7 +103,7 @@ const CardModalInfoComments = ({ postId }) => {
 				throw new Error(`HTTP error! Status: ${response.status}`);
 			}
 
-			// Actualizar la lista de comentarios después de la eliminación
+			// Actualizar la lista de comentarios despues de la eliminacion
 			const updatedResponse = await fetch(
 				`http://127.0.0.1:5000/comments/${postId}`
 			);
@@ -112,35 +115,104 @@ const CardModalInfoComments = ({ postId }) => {
 			const updatedData = await updatedResponse.json();
 			setComentarios(updatedData.comentarios);
 
-			// Ocultar el modal de eliminación
+			// Ocultar modal de eliminacion
 			handleHideDeleteModal();
 		} catch (error) {
 			console.error("Error al intentar eliminar el comentario: ", error);
 		}
 	};
 
-	// Muestra el modal para confirmar la eliminación del comentario
+	// Muestra el modal para confirmar la eliminacion del comentario
 	const handleShowDeleteModal = (commentId) => {
 		setDeleteCommentId(commentId);
 	};
 
-	// Ocultar el modal para confirmar la eliminación del comentario
+	// Ocultar el modal para confirmar la eliminacion del comentario
 	const handleHideDeleteModal = () => {
 		setDeleteCommentId(null);
 	};
 
+	// ------------------ Desde aca, todo para agregar un nuevo comentario ------------------
+	// Abre modal para agregar comentario
+	const handleShowAddModal = () => {
+		setShowAddModal(true);
+	};
+	// Guardar nuevo comentario
+	const handleSaveComment = async ({ usuario, comentario }) => {
+		try {
+			const response = await fetch(
+				`http://127.0.0.1:5000/comments/${postId}`,
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						usuario,
+						contenido: comentario,
+					}),
+				}
+			);
+
+			if (!response.ok) {
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
+
+			// Actualizar lista de comentarios despues de crear el comentario
+			const updatedResponse = await fetch(
+				`http://127.0.0.1:5000/comments/${postId}`
+			);
+			if (!updatedResponse.ok) {
+				throw new Error(
+					`HTTP error! Status: ${updatedResponse.status}`
+				);
+			}
+			const updatedData = await updatedResponse.json();
+			setComentarios(updatedData.comentarios);
+
+			// Ocultar modal agregar comentario
+			setShowAddModal(false);
+		} catch (error) {
+			console.error("Error al intentar guardar el comentario: ", error);
+		}
+	};
+
 	return (
 		<>
-			{comentarios.length === 0 ? (
-				""
-			) : (
-				<h5 className="card-title text-start">
-					Comentarios ({comentarios.length})
-				</h5>
-			)}
+			<div className="my-0">
+				<div className="row justify-content-between">
+					<div className="col">
+						{/* MUESTRA EL BADGE COMENTARIOS SI HAY ALGUN COMENTARIO */}
+						{comentarios.length > 0 && (
+							<h4 className="card-title text-start">
+								<span className="badge bg-secondary position-relative">
+									Comentarios
+									<span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+										{comentarios.length}
+									</span>
+								</span>
+							</h4>
+						)}
+					</div>
+					{/* BOTON PARA AGREGAR COMENTARIOS */}
+					<div className="col-2 align-items-end justify-content-end">
+						<button
+							className="btn btn-sm btn-success position-relative align-self-end"
+							type="button"
+							name="agregarComentario"
+							onClick={handleShowAddModal}
+							title="Nuevo comentario">
+							<i className="fa-solid fa-comment-dots"></i>
+						</button>
+					</div>
+				</div>
+			</div>
 
 			{comentarios.map((comentario) => (
-				<div className="card mb-5" key={comentario._id}>
+				<div
+					className="card border border-primary mb-4"
+					key={comentario._id}>
+					{/* SI HAY ID DE COMENTARIO, MUESTRA LOS INPUTS PARA MODIFICAR EL COMENTARIO */}
 					{editCommentId === comentario._id ? (
 						<div className="card-body">
 							<textarea
@@ -158,6 +230,7 @@ const CardModalInfoComments = ({ postId }) => {
 										comentario._id
 									)
 								}
+								/* SI EL COMENTARIO ESTA VACIO NO SE PUEDE GUARDAR */
 								disabled={!comentario.contenido.trim()} // Deshabilitar si el contenido está vacío
 							>
 								Guardar
@@ -169,31 +242,61 @@ const CardModalInfoComments = ({ postId }) => {
 							</button>
 						</div>
 					) : (
+						/* SI NO HAY ID DE COMENTARIO SELECCIONADO, MUESTRA LOS COMENTARIOS DEL POSTEO */
 						<>
-							<div className="card-header text-start p-1">
-								<b className="text-success">
-									{comentario.usuario}
-								</b>{" "}
-								comentó:
-							</div>
-							<div className="card-body text-start p-2 fs-6 fst-italic">
-								{comentario.contenido}
-							</div>
-							<div className="card-footer d-flex justify-content-end p-1">
-								<button
-									className="btn btn-sm btn-primary me-2"
-									onClick={() => handleEdit(comentario._id)}
-									title="Editar comentario">
-									<i className="fa-solid fa-regular fa-edit"></i>
-								</button>
-								<button
-									className="btn btn-sm btn-danger"
-									onClick={() =>
-										handleShowDeleteModal(comentario._id)
-									}
-									title="Eliminar comentario">
-									<i className="fa-regular fa-trash-can"></i>
-								</button>
+							<div>
+								<div className="card-header text-start ps-1">
+									<b className="text-success">
+										{comentario.usuario}
+									</b>{" "}
+									comentó:
+								</div>
+								<div className="card-body text-start p-2 fs-6 fst-italic">
+									{comentario.contenido}
+								</div>
+								<div className="card-footer p-1">
+									<div className="row justify-content-between">
+										<div className="col align-items-start">
+											<p className="text-muted text-start align-items-start">
+												Publicado el {comentario.fecha
+													&& comentario.fecha.substr(
+															8,
+															2
+													) +
+													"/" +
+													comentario.fecha.substr(
+															5,
+															2
+													) +
+													"/" +
+													comentario.fecha.substr(
+															0,
+															4
+													)}
+											</p>
+										</div>
+										<div className="col-3 align-items-end justify-content-end me-0">
+											<button
+												className="btn btn-sm btn-primary me-2"
+												onClick={() =>
+													handleEdit(comentario._id)
+												}
+												title="Editar comentario">
+												<i className="fa-solid fa-regular fa-edit"></i>
+											</button>
+											<button
+												className="btn btn-sm btn-danger"
+												onClick={() =>
+													handleShowDeleteModal(
+														comentario._id
+													)
+												}
+												title="Eliminar comentario">
+												<i className="fa-regular fa-trash-can"></i>
+											</button>
+										</div>
+									</div>
+								</div>
 							</div>
 						</>
 					)}
@@ -204,6 +307,12 @@ const CardModalInfoComments = ({ postId }) => {
 					onCancel={handleHideDeleteModal}
 					onConfirm={handleConfirmDelete}
 					tipoEliminacion="comentario"
+				/>
+			)}
+			{showAddModal && (
+				<CardModalAdd
+					onSave={handleSaveComment}
+					onCancel={() => setShowAddModal(false)}
 				/>
 			)}
 		</>

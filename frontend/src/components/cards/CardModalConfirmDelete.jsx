@@ -11,7 +11,7 @@ const CardModalDelete = ({ onCancel, onConfirm, tipoEliminacion }) => {
 			style={{ display: "block" }}>
 			<div className="modal-dialog modal-dialog-centered">
 				<div className="modal-content">
-					<div className="modal-header">
+					<div className="modal-header bg-danger text-white">
 						<h5 className="modal-title">Confirmar eliminación</h5>
 						<button
 							type="button"

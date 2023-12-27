@@ -27,6 +27,7 @@ const ModalAgregar = (props) => {
 				setTitulo(data.titulo);
 				setDescripcion(data.descripcion);
 				setImagenUrl(data.imagen);
+
 			} catch (error) {
 				console.error(
 					"Error al intentar obtener datos para editar: ",
@@ -46,11 +47,7 @@ const ModalAgregar = (props) => {
 			imagen: imagenUrl
 		};
 
-		// const url = props.isEdit
 		// 	? `http://127.0.0.1:5000/posts/${props.postId}`
-		// 	: "http://127.0.0.1:5000/posts";
-
-		// const method = props.isEdit ? "PUT" : "POST";
 
 		try {
 			const response = await fetch("http://127.0.0.1:5000/posts", {
@@ -60,14 +57,6 @@ const ModalAgregar = (props) => {
 				},
 				body: JSON.stringify(data),
 			});
-
-			// const response = await fetch(url, {
-			// 	method,
-			// 	headers: {
-			// 		"Content-Type": "application/json",
-			// 	},
-			// 	body: JSON.stringify(data),
-			// })
 
 			if (!response.ok) {
 				throw new Error("Hubo un error en la petición.");
