@@ -241,14 +241,14 @@ export default function Modal(props) {
 						)}
 						{!isEditing && (
 							<div className="modal-body">
-								<p className="mt-3 text-start">
-									{props.descripcion}
-								</p>
 								<img
 									src={props.imagen}
 									className="card-img-top card-img-modal-info mb-3"
 									alt={props.titulo}
 								/>
+								<p className="mb-5 mt-2 text-start">
+									{props.descripcion}
+								</p>
 								<CardModalInfoComments postId={props._id} />
 							</div>
 						)}

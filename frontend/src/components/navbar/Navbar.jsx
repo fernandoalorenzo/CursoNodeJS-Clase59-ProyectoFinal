@@ -36,7 +36,7 @@ export default function Navbar() {
 					id="navbarSupportedContent">
 					<ul className="navbar-nav me-5">
 						{state?.logger ? (
-							<div>
+							<>
 								<li className="nav-item menu-item mx-4">
 									<Link className="nav-link " to="/">
 										Inicio
@@ -47,19 +47,17 @@ export default function Navbar() {
 										Perfil
 									</Link>
 								</li>
-								<div className="user">
-									<i className="fa-solid fa-user fa-lg pe-2"></i>
-									<span>
-										{state?.nombre + " " + state?.apellido}
-									</span>
-									{/* <i className="fa-solid fa-power"></i> */}
-									<button className="btn btn-light ms-2" onClick={onLogout}>
-										Cerrar Sesión
-									</button>
-								</div>
-							</div>
+								<i className="fa-solid fa-user fa-lg pe-2"></i>
+								<span>
+									{state?.nombre + " " + state?.apellido}
+								</span>
+								{/* <i className="fa-solid fa-power"></i> */}
+								<button className="btn btn-light ms-2" onClick={onLogout}>
+									Cerrar Sesión
+								</button>
+							</>
 						) : (
-							<div className="user">
+							<>
 								<li className="nav-item menu-item mx-4">
 									<Link className="nav-link" to="login">
 										Inciar sesión
@@ -70,7 +68,7 @@ export default function Navbar() {
 										Registrarse
 									</Link>
 								</li>
-							</div>
+							</>
 						)}
 					</ul>
 				</div>

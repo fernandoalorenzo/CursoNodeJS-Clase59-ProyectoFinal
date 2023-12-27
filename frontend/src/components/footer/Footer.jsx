@@ -3,8 +3,8 @@ import React from "react";
 
 const Footer = () => {
 	return (
-		<footer className="bg-body-tertiary text-center text-lg-start align-items-center bg-primary bg-gradient">
-			<p className="text-center">
+		<footer className="text-center bg-primary bg-gradient align-items-center col align-self-center">
+			<p>
 				Copyright ©{new Date().getFullYear()}. All rights reserved.
 				Powered by Fernando Lorenzo
 			</p>
