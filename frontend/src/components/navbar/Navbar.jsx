@@ -10,17 +10,15 @@ export default function Navbar() {
 
 	const onLogout = () => {
 		navigate("/login", { replace: true });
-	}
+	};
 
 	return (
-		<nav className="navbar navbar-expand-lg fixed-top navbar-light navbar-custom bg-warning bg-gradient mb-4">
-			<div className="container-fluid mb-3">
-				<Link className="navbar-brand" to="/">
-					<Logo
-						alt="logo"
-						className="d-inline-block align-text-top"></Logo>
+		<nav className="navbar navbar-expand-lg fixed-top navbar-light bg-warning bg-gradient">
+			<div className="container-fluid">
+				<Link className="navbar-brand m-0" to="/">
+					<Logo alt="logo" className="d-inline align-text-top"></Logo>
 				</Link>
-				<span className="mx-3 logo-titulo">MeetMe.gram</span>
+				<span className="logo-titulo">MeetMe.gram</span>
 				<button
 					className="navbar-toggler"
 					type="button"
@@ -32,7 +30,7 @@ export default function Navbar() {
 					<span className="navbar-toggler-icon"></span>
 				</button>
 				<div
-					className="collapse navbar-collapse justify-content-end mx-5"
+					className="collapse navbar-collapse justify-content-end"
 					id="navbarSupportedContent">
 					<ul className="navbar-nav me-5">
 						{state?.logger ? (
@@ -52,7 +50,9 @@ export default function Navbar() {
 									{state?.nombre + " " + state?.apellido}
 								</span>
 								{/* <i className="fa-solid fa-power"></i> */}
-								<button className="btn btn-light ms-2" onClick={onLogout}>
+								<button
+									className="btn btn-light ms-2"
+									onClick={onLogout}>
 									Cerrar Sesión
 								</button>
 							</>
@@ -60,7 +60,7 @@ export default function Navbar() {
 							<>
 								<li className="nav-item menu-item mx-4">
 									<Link className="nav-link" to="login">
-										Inciar sesión
+										Iniciar sesión
 									</Link>
 								</li>
 								<li className="nav-item menu-item mx-4">

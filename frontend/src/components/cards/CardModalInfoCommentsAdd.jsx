@@ -10,41 +10,34 @@ const CardModalAdd = ({ onSave, onCancel }) => {
 	const [isGuardarDisabled, setGuardarDisabled] = useState(true);
 
 	const handleInputChange = (e) => {
-    const { name, value } = e.target;
+		const { name, value } = e.target;
 
-	// Actualizar el estado según el campo que cambió
-	if (name === "usuario") {
-		setUsuario(value);
-	} else if (name === "comentario") {
+		// Actualizar el estado segun el campo que cambio
+		if (name === "usuario") {
+			setUsuario(value);
+		} else if (name === "comentario") {
 		setComentario(value);
-	}
-
-	console.log("usuario: ", usuario);
-	console.log("comentario: ", comentario);
-
-	console.log("value.trim: ", value.trim());
-	console.log("comentario.trim: ", comentario.trim());
-	console.log("usuario.trim: ", usuario.trim());
+		}
 	};
 
 	useEffect(() => {
-		// Verificar si ambos campos están llenos después de que los estados se han actualizado
+		// Verificar si los campos no estan vacios despues de actualizar estados
 		setGuardarDisabled(
 			usuario.trim() === "" || comentario.trim() === ""
 		);
 	}, [usuario, comentario]);
 	
 	const handleSave = () => {
-		// Validar que ambos campos estén llenos
+		// Validar que los campos no esten vacios
 		if (usuario.trim() === "" || comentario.trim() === "") {
 			alert("Por favor, complete ambos campos.");
 			return;
 		}
 
-		// Llamar a la función onSave pasando los datos del nuevo comentario
+		// Pasando datos del nuevo comentario
 		onSave({ usuario, comentario });
 
-		// Limpiar los campos y cerrar el modal
+		// Limpiar campos y cerrar modal
 		setUsuario("");
 		setComentario("");
 		setGuardarDisabled(true);
@@ -66,8 +59,13 @@ const CardModalAdd = ({ onSave, onCancel }) => {
 							onClick={onCancel}></button>
 					</div>
 					<div className="modal-body">
-						<div className="mb-3">
-							<label className="form-label">Usuario</label>
+						<div className="form-group mb-4">
+							<div className="row align-items-start">
+								<label className="col-auto form-label">
+									Usuario
+								</label>
+							</div>
+
 							<input
 								type="text"
 								className="form-control"
@@ -76,14 +74,19 @@ const CardModalAdd = ({ onSave, onCancel }) => {
 								onInput={handleInputChange}
 							/>
 						</div>
-						<div className="mb-3">
-							<label className="form-label">Comentario</label>
+						<div className="form-group mb-4">
+							<div className="row align-items-start">
+								<label className="col-auto form-label">
+									Comentario
+								</label>
+							</div>
 							<textarea
 								rows="3"
 								className="form-control"
 								name="comentario"
 								value={comentario}
-								onInput={handleInputChange}></textarea>
+								onInput={handleInputChange}>
+							</textarea>
 						</div>
 					</div>
 					<div className="modal-footer">
@@ -107,10 +110,5 @@ const CardModalAdd = ({ onSave, onCancel }) => {
 		</div>
 	);
 };
-
-// CardModalAdd.propTypes = {
-// 	onSave: PropTypes.func.isRequired,
-// 	onCancel: PropTypes.func.isRequired,
-// };
 
 export default CardModalAdd;

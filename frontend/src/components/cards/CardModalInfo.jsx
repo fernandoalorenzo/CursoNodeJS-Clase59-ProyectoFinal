@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import CardModalInfoComments from "./CardModalInfoComments";
 import CardModalDelete from "./CardModalConfirmDelete";
+import { Toaster } from "react-hot-toast";
+import { CardToastOK } from "./CardToast";
 
 export default function Modal(props) {
 	const [cardModalDelete, setCardModalDelete] = useState(false);
@@ -34,7 +36,7 @@ export default function Modal(props) {
 			const response = await fetch(
 				`http://127.0.0.1:5000/posts/${props._id}`,
 				{
-					method: "PUT", // O el método HTTP adecuado para la actualización en tu API
+					method: "PUT",
 					headers: {
 						"Content-Type": "application/json",
 					},
@@ -51,6 +53,9 @@ export default function Modal(props) {
 			}
 
 			setIsEditing(false);
+
+			// Muestra notificacion
+			CardToastOK("Posteo", "modificado");
 
 			props.fetchData();
 		} catch (error) {
@@ -71,6 +76,9 @@ export default function Modal(props) {
 
 			props.onClose();
 
+			// Muestra notificacion
+			CardToastOK("Posteo", "eliminado");
+
 			props.fetchData();
 		} catch (error) {
 			console.error("Error al intentar eliminar el posteo: ", error);
@@ -85,7 +93,7 @@ export default function Modal(props) {
 	};
 
 	const handleCancelDelete = () => {
-		// Cierra el modal de confirmación
+		// Cierra el modal de confirmacion
 		setCardModalDelete(false);
 	};
 
@@ -103,8 +111,8 @@ export default function Modal(props) {
 				<div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 					<div className="modal-content">
 						<div className="card-header">
-							<div className="row pt-2">
-								<div className="col">
+							<div className="row">
+								<div className="col-8 m-0">
 									{!isEditing ? (
 										<h5 className="card-title text-start">
 											{props.titulo}
@@ -117,30 +125,30 @@ export default function Modal(props) {
 								</div>
 								{!isEditing && (
 									<>
-										<div className="col-md-1 me-3 align-items-end">
+										<div className="col-1 mr-1 px-1">
 											<i
-												className="btn bg-primary fa-regular fa-edit"
-												style={{ color: "#ffffff" }}
+												className="fa-regular fa-edit fa-lg"
+												style={{ color: "#031faa" }}
 												onClick={handleEditClick}
 												title="Editar posteo"></i>
 										</div>
-										<div className="col-md-1 me-3 align-items-end">
+										<div className="col-1 mr-1 px-3">
 											<i
-												className="btn bg-danger fa-regular fa-trash-can"
-												style={{ color: "#ffffff" }}
+												className="fa-regular fa-trash-can fa-lg"
+												style={{ color: "#ff0000" }}
 												onClick={handleDeleteClick}
 												title="Eliminar posteo"></i>
 										</div>
+										<div className="col-1 mx-3 px-3">
+											<button
+												type="button"
+												className="btn-close"
+												onClick={() =>
+													props.onClose()
+												}></button>
+										</div>
 									</>
 								)}
-								<div className="col-md-1 me-3 align-items-end">
-									<button
-										type="button"
-										className="btn-close end-0 tex-end"
-										onClick={() =>
-											props.onClose()
-										}></button>
-								</div>
 							</div>
 						</div>
 						{isEditing && (
@@ -167,7 +175,7 @@ export default function Modal(props) {
 										</label>
 									</div>
 									<textarea
-										style={{ height: "8rem" }}
+										rows="3"
 										className="form-control"
 										value={editedDescription}
 										onChange={(e) =>
@@ -255,7 +263,7 @@ export default function Modal(props) {
 					</div>
 				</div>
 			</div>
-			{/* Modal de confirmación */}
+			{/* Modal de confirmación para eliminar posteo*/}
 			{cardModalDelete === true ? (
 				<CardModalDelete
 					onConfirm={() => {
@@ -268,6 +276,7 @@ export default function Modal(props) {
 			) : (
 				""
 			)}
+			<Toaster />
 		</>
 	);
 }
