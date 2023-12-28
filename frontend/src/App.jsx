@@ -9,8 +9,8 @@ import {
 import Navbar from "./components/navbar/Navbar";
 import Home from "./pages/Home";
 import Footer from "./components/footer/Footer";
-import LoginForm from "./components/controlUser/LoginForm";
-import RegisterForm from "./components/controlUser/RegisterForm";
+import LoginForm from "./components/users/LoginForm";
+import RegisterForm from "./components/users/RegisterForm";
 import "./styles/styles.css";
 
 const App = () => {
