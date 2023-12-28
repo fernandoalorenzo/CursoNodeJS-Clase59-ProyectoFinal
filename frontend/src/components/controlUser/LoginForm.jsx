@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useForm from "../hooks/UseForm";
+// import useForm from "../hooks/UseForm";
 
 const LoginForm = () => {
 	const {nombre, apellido, email, password, onInputChange, onResetForm } = useForm({
@@ -48,7 +48,6 @@ const LoginForm = () => {
 											<p className="text-white-50 mb-5">
 												Ingrese su e-mail y contraseña
 											</p>
-
 											<div className="form-outline form-white mb-4">
 												<input
 													type="email"

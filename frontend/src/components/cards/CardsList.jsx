@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card.jsx";
 import CardModalAgregar from "./CardModalAgregar.jsx";
+import { CardToastOK } from "./CardToast.jsx";
+import { Toaster } from "react-hot-toast";
 
 const CardsList = (posts) => {
 	const [data, setData] = useState([]);
@@ -78,6 +80,7 @@ const CardsList = (posts) => {
 			) : (
 				""
 			)}
+			<Toaster />
 		</>
 	);
 };

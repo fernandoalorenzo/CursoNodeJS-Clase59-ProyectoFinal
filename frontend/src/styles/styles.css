@@ -4,6 +4,7 @@
   font-weight: 400;
 
   color-scheme: light dark;
+  COLOR:  #0dc71a;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 
@@ -92,6 +93,7 @@ footer {
 }
 
 @media screen and (max-width: 768px) {
+<<<<<<< HEAD
   body {
       place-items: center;
       min-height: 100vh;
@@ -99,6 +101,8 @@ footer {
       padding-bottom: 3.5rem;
     }
 
+=======
+>>>>>>> 9c4dde004aef6f7a655dac25a95a2ae1922ff1b5
   footer {
     font-size: .75rem;
     height: 3rem;
@@ -106,6 +110,7 @@ footer {
     padding-bottom: 0.25rem;
   }
 
+<<<<<<< HEAD
   .logo-img {
     width: 4rem;
     height: 1.8rem;
@@ -130,4 +135,21 @@ footer {
     font-weight: 600;
     text-decoration: none;
   }
+=======
+.logo-img {
+  width: 3rem;
+  height: 1.5rem;
+  margin-top: .5rem;
+  align-content: center;
+  align-items: center;
+}
+
+.logo-titulo {
+  font-size: 1.2rem;
+  color: #0088ff;
+  padding-left: 0.8rem;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: 700;
+}
+>>>>>>> 9c4dde004aef6f7a655dac25a95a2ae1922ff1b5
 }

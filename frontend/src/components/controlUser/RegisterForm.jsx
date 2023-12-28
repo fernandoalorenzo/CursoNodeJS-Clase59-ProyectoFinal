@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useForm from "../hooks/UseForm";
+// import useForm from "../hooks/UseForm";
 
 const RegisterForm = () => {
 	const { nombre, apellido, email, password, onInputChange, onResetForm } = useForm({
