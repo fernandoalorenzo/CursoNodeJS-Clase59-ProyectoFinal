@@ -10,23 +10,6 @@ const CardModalAdd = ({ onSave, onCancel }) => {
 	const [isGuardarDisabled, setGuardarDisabled] = useState(true);
 
 	const handleInputChange = (e) => {
-<<<<<<< HEAD
-    const { name, value } = e.target;
-
-	// Actualizar el estado segun el campo que cambio
-	if (name === "usuario") {
-		setUsuario(value);
-	} else if (name === "comentario") {
-		setComentario(value);
-	}
-
-	console.log("usuario: ", usuario);
-	console.log("comentario: ", comentario);
-
-	console.log("value.trim: ", value.trim());
-	console.log("comentario.trim: ", comentario.trim());
-	console.log("usuario.trim: ", usuario.trim());
-=======
 		const { name, value } = e.target;
 
 		// Actualizar el estado segun el campo que cambio
@@ -35,7 +18,6 @@ const CardModalAdd = ({ onSave, onCancel }) => {
 		} else if (name === "comentario") {
 		setComentario(value);
 		}
->>>>>>> 9c4dde004aef6f7a655dac25a95a2ae1922ff1b5
 	};
 
 	useEffect(() => {
