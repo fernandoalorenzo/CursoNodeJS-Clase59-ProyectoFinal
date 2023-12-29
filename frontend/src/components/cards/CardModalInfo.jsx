@@ -112,7 +112,7 @@ export default function Modal(props) {
 					<div className="modal-content">
 						<div className="card-header">
 							<div className="row">
-								<div className="col-8 m-0">
+								<div className="col m-0">
 									{!isEditing ? (
 										<h5 className="card-title text-start">
 											{props.titulo}
@@ -127,14 +127,14 @@ export default function Modal(props) {
 									<>
 										<div className="col-1 mr-1 px-1">
 											<i
-												className="fa-regular fa-edit fa-lg"
-												style={{ color: "#031faa" }}
+												className="btn fa-solid fa-regular fa-edit fa-lg"
+												style={{ color: "RGB(255, 202,44)" }}
 												onClick={handleEditClick}
 												title="Editar posteo"></i>
 										</div>
 										<div className="col-1 mr-1 px-3">
 											<i
-												className="fa-regular fa-trash-can fa-lg"
+												className="btn fa-regular fa-trash-can fa-lg"
 												style={{ color: "#ff0000" }}
 												onClick={handleDeleteClick}
 												title="Eliminar posteo"></i>

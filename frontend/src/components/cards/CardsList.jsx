@@ -67,8 +67,8 @@ const CardsList = (posts) => {
 						</button>
 					</div>
 				</div>
-				<div className="row justify-content-center mx-4 bg-secondary">
-					<div className="row bg-secondary justify-content-center">
+				<div className="row justify-content-center mx-4 border border-success border-2 rounded">
+					<div className="row  justify-content-center">
 						<div className="col-sm-8 d-flex p-3 justify-content-center my-1">
 							<input
 								className="form-control"

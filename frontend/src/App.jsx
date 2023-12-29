@@ -8,9 +8,10 @@ import {
 } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
 import Home from "./pages/Home";
-import Footer from "./components/footer/Footer";
+import Users from "./pages/Users";
 import LoginForm from "./components/users/LoginForm";
 import RegisterForm from "./components/users/RegisterForm";
+import Footer from "./components/footer/Footer";
 import "./styles/styles.css";
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
 			<Navbar />
 			<Routes>
 				<Route path="/" element={<Home />} />
+				<Route path="/users" element={<Users />} />
 				<Route path="/login" element={<LoginForm />} />
 				<Route path="/register" element={<RegisterForm />} />
 				{/* <Route path="/CardsList" element={<CardsList />} /> */}

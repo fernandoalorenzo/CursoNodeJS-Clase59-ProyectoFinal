@@ -293,7 +293,7 @@ const CardModalInfoComments = ({ postId }) => {
 										</div>
 										<div className="col-3 align-items-end justify-content-end me-0">
 											<button
-												className="btn btn-sm btn-primary me-2"
+												className="btn btn-sm btn-warning me-2"
 												onClick={() =>
 													handleEdit(comentario._id)
 												}

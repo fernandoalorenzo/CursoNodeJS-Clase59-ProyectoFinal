@@ -40,7 +40,7 @@ const getCommentsByPostId = async (request, response) => {
 
 		return response.status(200).json({
 			cantidadComentarios: comments.length,
-			comentarios: comments
+			comentarios: comments,
 		});
 	} catch (error) {
 		console.log(error.message);

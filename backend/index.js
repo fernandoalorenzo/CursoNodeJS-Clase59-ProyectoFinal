@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import postsRouter from "./routes/postsRoute.js";
 import commentsRouter from "./routes/commentsRoute.js";
+import usersRouter from "./routes/usersRoute.js";
 import connect from "./config/db.js";
 
 const app = express();
@@ -10,6 +11,7 @@ app.use(cors());
 
 app.use("/posts", postsRouter);
 app.use("/comments", commentsRouter);
+app.use("/users", usersRouter);
 
 // CONEXION A LA BASE DE DATOS
 connect();

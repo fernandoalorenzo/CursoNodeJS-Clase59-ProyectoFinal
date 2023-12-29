@@ -2,18 +2,17 @@ import Post from "../models/postModel.js";
 
 // Crear un nuevo posteo
 const createPost = async (request, response) => {
-    try {
+	try {
 		const post = await Post.create(request.body);
 
-        return response.status(201).send({
-            message: "El posteo fue creado exitosamente!",
-            data: post
-        })
-    }
-    catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
-    }
+		return response.status(201).send({
+			message: "El posteo fue creado exitosamente!",
+			data: post,
+		});
+	} catch (error) {
+		console.log(error.message);
+		response.status(500).send({ message: error.message });
+	}
 };
 
 // Obtener todos los posteos
@@ -21,14 +20,13 @@ const getPosts = async (request, response) => {
 	try {
 		const posts = await Post.find({});
 		return response.status(200).json({
-			count: posts.lenght,
+			count: posts.length,
 			data: posts,
 		});
 	} catch (error) {
 		console.log(error.message);
 		response.status(500).send({ message: error.message });
 	}
-
 };
 
 // Obtener un posteo por Id
