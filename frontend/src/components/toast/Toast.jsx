@@ -1,6 +1,6 @@
 import { toast } from "react-hot-toast";
 
-export const CardToastOK = ( elemento, accion ) => {
+export const ToastOK = ( elemento, accion ) => {
 	toast.success(elemento + " " + accion + " correctamente", {
 		style: {
 			border: "1px solid #0dc71a",
@@ -13,7 +13,7 @@ export const CardToastOK = ( elemento, accion ) => {
 	return <></>;
 };
 
-export const CardToastError = ( elemento, accion) => {
+export const ToastError = ( elemento, accion) => {
 	toast.error("Error al intentar " + accion + " el " + elemento + "", {
 		style: {
 			border: "1px solid #ff000d",

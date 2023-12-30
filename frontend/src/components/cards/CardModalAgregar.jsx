@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { Toaster } from "react-hot-toast";
-import { CardToastOK } from "./CardToast";
+import { ToastOK } from "../toast/Toast";
 
 const ModalAgregar = (props) => {
 	const [titulo, setTitulo] = useState("");
@@ -68,7 +68,7 @@ const ModalAgregar = (props) => {
 			props.onClose();
 
 			// MUESTRA NOTIFICACIÓN
-			CardToastOK("Posteo", "agregado");
+			ToastOK("Posteo", "agregado");
 
 		} catch (error) {
 			console.error("Error:", error);
@@ -88,7 +88,7 @@ const ModalAgregar = (props) => {
 				style={modalStyle}>
 				<div className="modal-dialog modal-dialog-centered">
 					<div className="modal-content">
-						<div className="modal-header">
+						<div className="modal-header bg-primary">
 							<h5 className="modal-title">Agregar Post</h5>
 							<button
 								type="button"

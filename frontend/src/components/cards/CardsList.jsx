@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card.jsx";
 import CardModalAgregar from "./CardModalAgregar.jsx";
-import { CardToastOK } from "./CardToast.jsx";
+import { ToastOK } from "../toast/Toast.jsx";
 import { Toaster } from "react-hot-toast";
 
 const CardsList = (posts) => {

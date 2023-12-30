@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
-import CardModalDelete from "./CardModalConfirmDelete";
+// import CardModalDelete from "./CardModalConfirmDelete";
+import ModalDelete from "./../delete/ModalConfirmDelete";
 import CardModalAdd from "./CardModalInfoCommentsAdd";
 import { Toaster } from "react-hot-toast";
-import { CardToastError, CardToastOK } from "./CardToast";
+import { ToastError, ToastOK } from "../toast/Toast";
 
 const CardModalInfoComments = ({ postId }) => {
 	const [comentarios, setComentarios] = useState([]);
@@ -71,7 +72,7 @@ const CardModalInfoComments = ({ postId }) => {
 			setEditCommentId(null);
 
 			// Muestra notificacion
-			CardToastOK("Comentario", "modificado");
+			ToastOK("Comentario", "modificado");
 		} catch (error) {
 			console.error(
 				"Error al intentar guardar la edición del comentario: ",
@@ -124,7 +125,7 @@ const CardModalInfoComments = ({ postId }) => {
 			handleHideDeleteModal();
 
 			// Mostrar Toast
-			CardToastOK("Comentario", "eliminado");
+			ToastOK("Comentario", "eliminado");
 		} catch (error) {
 			console.error("Error al intentar eliminar el comentario: ", error);
 		}
@@ -183,12 +184,12 @@ const CardModalInfoComments = ({ postId }) => {
 			setShowAddModal(false);
 
 			// Mostrar Toast OK
-			CardToastOK("Comentario", "guardado");
+			ToastOK("Comentario", "guardado");
 		} catch (error) {
 			console.error("Error al intentar guardar el comentario: ", error);
 
 			// Mostrar Toast ERROR
-			CardToastError("comentario", "guardar");
+			ToastError("comentario", "guardar");
 		}
 	};
 
@@ -319,7 +320,7 @@ const CardModalInfoComments = ({ postId }) => {
 				</div>
 			))}
 			{deleteCommentId && (
-				<CardModalDelete
+				<ModalDelete
 					onCancel={handleHideDeleteModal}
 					onConfirm={handleConfirmDelete}
 					tipoEliminacion="comentario"

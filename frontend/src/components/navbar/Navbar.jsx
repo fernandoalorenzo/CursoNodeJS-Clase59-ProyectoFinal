@@ -35,12 +35,12 @@ export default function Navbar() {
 						{/* {state?.logger ? ( */}
 						<>
 							<li className="nav-item menu-item mx-4">
-								<Link className="nav-link " to="/">
+								<Link className="nav-link" to="/">
 									Inicio
 								</Link>
 							</li>
 							<li className="nav-item menu-item mx-4">
-								<Link className="nav-link " to="/users">
+								<Link className="nav-link nav-link-custom" to="/users">
 									Usuarios
 								</Link>
 							</li>
