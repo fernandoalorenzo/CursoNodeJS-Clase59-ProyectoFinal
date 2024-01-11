@@ -6,7 +6,7 @@ export default () =>
     mongoose
         .connect(mongoDBURL)
         .then(() => {
-            console.log("Aplicación conectada a la Base de  Datos");
+            console.log("Aplicación conectada a la Base de Datos");
         })
         .catch((error) => {
             console.log(error);

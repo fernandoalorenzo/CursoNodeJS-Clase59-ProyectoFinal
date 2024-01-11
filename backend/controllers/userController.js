@@ -24,20 +24,6 @@ const getUsers = async (req, res) => {
 		res.status(500).json({ message: error.message });
 	}
 };
-// const getUsers = async (request, response) => {
-// 	try {
-// 		const users = await User.find({});
-// 		console.log(users);
-
-// 		return response.status(200).json({
-// 			count: users.length,
-// 			data: users,
-// 		});
-// 	} catch (error) {
-// 		console.log(error.message);
-// 		response.status(500).send({ message: error.message });
-// 	}
-// };
 
 // Obtener un usuario por Id
 const getUserById = async (request, response) => {

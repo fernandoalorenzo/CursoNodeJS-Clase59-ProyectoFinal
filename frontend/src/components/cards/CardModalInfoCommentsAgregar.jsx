@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-const CardModalAdd = ({ onSave, onCancel }) => {
+const CardModalAgregar = ({ onSave, onCancel }) => {
 	const [usuario, setUsuario] = useState("");
 	const [comentario, setComentario] = useState("");
 	const [isGuardarDisabled, setGuardarDisabled] = useState(true);
@@ -111,4 +111,4 @@ const CardModalAdd = ({ onSave, onCancel }) => {
 	);
 };
 
-export default CardModalAdd;
+export default CardModalAgregar;

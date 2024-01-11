@@ -84,10 +84,9 @@ export const UsersTable = ({ users }) => {
 					</div>
 				</div>
 				<div className="row">
-					<table className="table table-hover table-sm table-borderless align-middle text-center">
-						<thead className="table-dark">
+					<table className="table table-hover align-middle text-center">
+						<thead className="table-primary">
 							<tr>
-								<th scope="col">Nº</th>
 								<th scope="col" className="text-start">
 									Nombre
 								</th>
@@ -106,9 +105,6 @@ export const UsersTable = ({ users }) => {
 						<tbody>
 							{data.map((user, index) => (
 								<tr key={user._id}>
-									<td className="text-start align-middle text-center col-lg-1">
-										{index + 1}
-									</td>
 									<td className="text-start col-lg-3">
 										{user.nombre}
 									</td>

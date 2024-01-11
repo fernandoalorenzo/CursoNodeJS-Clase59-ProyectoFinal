@@ -74,7 +74,10 @@ const UserModalForm = (props) => {
 				style={modalStyle}>
 				<div className="modal-dialog modal-dialog-centered">
 					<div className="modal-content">
-						<div className="modal-header bg-warning">
+						<div
+							className={`modal-header ${
+								props.userData ? "bg-warning" : "bg-primary"
+							}`}>
 							<h5 className="modal-title">
 								{props.userData ? "Editar" : "Agregar"} usuario
 							</h5>

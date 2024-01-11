@@ -2,6 +2,7 @@
 @import 'cards.css';
 @import 'navbar.css';
 @import 'footer.css';
+@import '404.css';
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

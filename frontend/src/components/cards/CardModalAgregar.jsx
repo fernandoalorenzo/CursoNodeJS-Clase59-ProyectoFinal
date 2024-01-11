@@ -49,8 +49,6 @@ const ModalAgregar = (props) => {
 			imagen: imagenUrl
 		};
 
-		// 	? `http://127.0.0.1:5000/posts/${props.postId}`
-
 		try {
 			const response = await fetch("http://127.0.0.1:5000/posts", {
 				method: "POST",

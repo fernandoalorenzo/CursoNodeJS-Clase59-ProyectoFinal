@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
-// import CardModalDelete from "./CardModalConfirmDelete";
 import ModalDelete from "./../delete/ModalConfirmDelete";
-import CardModalAdd from "./CardModalInfoCommentsAdd";
+import CardModalAgregar from "./CardModalInfoCommentsAgregar";
 import { Toaster } from "react-hot-toast";
 import { ToastError, ToastOK } from "../toast/Toast";
 
@@ -13,7 +12,7 @@ const CardModalInfoComments = ({ postId }) => {
 	const [deleteCommentId, setDeleteCommentId] = useState(null);
 
 	// ESTADO DE MODAL PARA NUEVOS COMENTARIOS
-	const [showAddModal, setShowAddModal] = useState(false);
+	const [showAgregarModal, setShowAgregarModal] = useState(false);
 
 	useEffect(() => {
 		const fetchComentarios = async () => {
@@ -143,8 +142,8 @@ const CardModalInfoComments = ({ postId }) => {
 
 	// ------------------ Desde aca, todo para agregar un nuevo comentario ------------------
 	// Abre modal para agregar comentario
-	const handleShowAddModal = () => {
-		setShowAddModal(true);
+	const handleShowAgregarModal = () => {
+		setShowAgregarModal(true);
 	};
 	// Guardar nuevo comentario
 	const handleSaveComment = async ({ usuario, comentario }) => {
@@ -181,7 +180,7 @@ const CardModalInfoComments = ({ postId }) => {
 			setComentarios(updatedData.comentarios);
 
 			// Ocultar modal agregar comentario
-			setShowAddModal(false);
+			setShowAgregarModal(false);
 
 			// Mostrar Toast OK
 			ToastOK("Comentario", "guardado");
@@ -216,7 +215,7 @@ const CardModalInfoComments = ({ postId }) => {
 							className="btn btn-sm btn-success position-relative align-self-end"
 							type="button"
 							name="agregarComentario"
-							onClick={handleShowAddModal}
+							onClick={handleShowAgregarModal}
 							title="Nuevo comentario">
 							<i className="fa-solid fa-comment-dots"></i>
 						</button>
@@ -326,10 +325,10 @@ const CardModalInfoComments = ({ postId }) => {
 					tipoEliminacion="comentario"
 				/>
 			)}
-			{showAddModal && (
-				<CardModalAdd
+			{showAgregarModal && (
+				<CardModalAgregar
 					onSave={handleSaveComment}
-					onCancel={() => setShowAddModal(false)}
+					onCancel={() => setShowAgregarModal(false)}
 				/>
 			)}
 			<Toaster />
