@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CardModalInfoComments from "./CardModalInfoComments";
 import ModalDelete from "./../delete/ModalConfirmDelete";
 import { Toaster } from "react-hot-toast";
@@ -18,6 +18,20 @@ export default function Modal(props) {
 	const [editedImage, setEditedImage] = useState(props.imagen);
 
 	const [imagenUrl, setImagenUrl] = useState("");
+
+	// VERIFICAMOS SI EL POST PERTENECE AL USUARIO LOGUEADO ACTUALMENTE
+	const [isCurrentUserPost, setIsCurrentUserPost] = useState(false);
+
+	useEffect(() => {
+		// Id de Usuario logueado actualmente
+		const currentUser = localStorage.getItem("user");
+		const currentUserId = JSON.parse(currentUser).id;
+		// Id de Usuario del post
+		const postUserId = props.usuario;
+		
+		// VERIFICAMOS SI EL POST PERTENECE AL USUARIO LOGUEADO ACTUALMENTE (id de usuario logueado vs id de usuario del post)
+		setIsCurrentUserPost(currentUserId === postUserId);
+	}, [props.usuario]);
 
 	const handleImagenUrlChange = (event) => {
 		setImagenUrl(event.target.value);
@@ -93,7 +107,6 @@ export default function Modal(props) {
 	};
 
 	const handleCancelDelete = () => {
-		// Cierra el modal de confirmacion
 		setModalDelete(false);
 	};
 
@@ -123,12 +136,14 @@ export default function Modal(props) {
 										</h5>
 									)}
 								</div>
-								{!isEditing && (
+								{isCurrentUserPost && !isEditing && (
 									<>
 										<div className="col-1 mr-1 px-1">
 											<i
 												className="btn fa-solid fa-regular fa-edit fa-lg"
-												style={{ color: "RGB(255, 202,44)" }}
+												style={{
+													color: "RGB(255, 202,44)",
+												}}
 												onClick={handleEditClick}
 												title="Editar posteo"></i>
 										</div>
@@ -139,16 +154,16 @@ export default function Modal(props) {
 												onClick={handleDeleteClick}
 												title="Eliminar posteo"></i>
 										</div>
-										<div className="col-1 mx-3 px-3">
-											<button
-												type="button"
-												className="btn-close"
-												onClick={() =>
-													props.onClose()
-												}></button>
-										</div>
 									</>
 								)}
+								<div className="col-1 mx-3 px-3">
+									<button
+										type="button"
+										className="btn-close"
+										onClick={() =>
+											props.onClose()
+										}></button>
+								</div>
 							</div>
 						</div>
 						{isEditing && (

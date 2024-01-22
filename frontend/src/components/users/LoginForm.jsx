@@ -3,32 +3,76 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// import useForm from "../hooks/UseForm";
+import { Link } from "react-router-dom";
+
 
 const LoginForm = () => {
-	const {nombre, apellido, email, password, onInputChange, onResetForm } = useForm({
+	const [loginData, setLoginData] = useState({
 		email: "",
 		password: "",
-		nombre: "",
-		apellido: "",
 	});
+
+	// Estado de error en los datos de logueo
+	const [error, setError] = useState(null);
 
 	const navigate = useNavigate();
 
-	const onLogin = (e) => {
-		e.preventDefault();
-
-		navigate("/", {
-			replace: true,
-			state: {
-				logger: true,
-				nombre,
-				apellido
-			}
+	const onInputChange = (event) => {
+		setLoginData({
+			...loginData,
+			[event.target.name]: event.target.value,
 		});
-		onResetForm();
 	};
 
+	const onLogin = async (event) => {
+		event.preventDefault();
+
+		try {
+			const response = await fetch("http://localhost:5000/users/login", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(loginData),
+			});
+
+			if (response.ok) {
+				const { token, user } = await response.json();
+				// Guarda la info de usuario en localStorage
+				localStorage.setItem("token", token);
+				localStorage.setItem("user", JSON.stringify(user));
+				// console.log("Usuario autenticado:", user);
+				navigate("/");
+			} else {
+				const data = await response.json();
+
+				// Ocultar el mensaje de error pasados 3 segundos
+				setTimeout(() => {
+					setError(null);
+				}, 3000);
+
+				setError(data.message || "Error en el inicio de sesión.");
+			}
+		} catch (error) {
+			console.error("Error al iniciar sesión:", error);
+			setError(
+				"Error en el inicio de sesión. Inténtalo de nuevo más tarde."
+			);
+
+			// Ocultar el mensaje de error después de 3 segundos
+			setTimeout(() => {
+				setError(null);
+			}, 3000);
+		}
+	};
+
+	// DESACTIVAR EL SCROLL VERTICAL AL MONTAR EL COMPONENTE
+	useEffect(() => {
+		document.body.style.overflowY = "hidden";
+		return () => {
+			document.body.style.overflowY = "auto";
+		};
+	}, []);
 
 	return (
 		<>
@@ -53,7 +97,7 @@ const LoginForm = () => {
 													type="email"
 													className="form-control form-control-lg"
 													name="email"
-													value={email}
+													value={loginData.email}
 													onChange={onInputChange}
 													required
 												/>
@@ -69,7 +113,7 @@ const LoginForm = () => {
 													type="password"
 													className="form-control form-control-lg"
 													name="password"
-													value={password}
+													value={loginData.password}
 													onChange={onInputChange}
 													required
 												/>
@@ -85,16 +129,27 @@ const LoginForm = () => {
 												type="submit">
 												Login
 											</button>
+
+											<div className="mb-3">
+												{error && (
+													<div
+														className="alert alert-danger border border-danger mt-4 border-3"
+														role="alert">
+														<strong>{error}</strong>
+													</div>
+												)}
+											</div>
 										</div>
 
 										<div>
 											<p className="mb-0">
 												No tiene una cuenta?{" "}
-												<a
-													href="#!"
+												<span></span>
+												<Link
+													to="/register"
 													className="text-white-50 fw-bold">
 													Registrarse
-												</a>
+												</Link>
 											</p>
 										</div>
 									</div>

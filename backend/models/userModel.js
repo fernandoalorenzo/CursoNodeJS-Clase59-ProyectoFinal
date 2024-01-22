@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 const userSchema = mongoose.Schema(
 	{
@@ -27,6 +28,25 @@ const userSchema = mongoose.Schema(
 		timestamps: true,
 	}
 );
+
+userSchema.pre("save", async function (next) {
+	try {
+		// Verificar si el email ya existe en la base de datos
+		const existingUser = await User.findOne({ email: this.email });
+		if (existingUser) {
+			throw new Error("El email ya está registrado");
+		}
+
+		// Encriptar la contraseña antes de guardarla en la base de datos
+		const salt = bcrypt.genSalt(10);
+		const hashedPassword = bcrypt.hash(this.password, salt);
+		this.password = hashedPassword;
+
+		next();
+	} catch (error) {
+		next(error);
+	}
+});
 
 const User = mongoose.model("Users", userSchema);
 export default User;

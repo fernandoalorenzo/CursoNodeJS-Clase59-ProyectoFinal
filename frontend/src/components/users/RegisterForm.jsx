@@ -3,31 +3,20 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// import useForm from "../hooks/UseForm";
+import { ToastErrorGenerico, ToastOK } from "../toast/Toast.jsx";
+import { ToastError } from "../toast/Toast.jsx";
+import { Toaster } from "react-hot-toast";
 
 const RegisterForm = () => {
-	const { nombre, apellido, email, password, onInputChange, onResetForm } = useForm({
-		nombre: "",
-		apellido: "",
+	const [formData, setFormData] = useState({
 		email: "",
 		password: "",
+		nombre: "",
+		apellido: "",
+		rol: ""
 	});
 
 	const navigate = useNavigate();
-
-	const onRegister = (e) => {
-		e.preventDefault();
-
-		navigate("/", {
-			replace: true,
-			state: {
-				logger: true,
-				nombre,
-				apellido,
-			},
-		});
-		onResetForm();
-	}
 
 	// DESACTIVAR EL SCROLL VERTICAL AL MONTAR EL COMPONENTE
 	useEffect(() => {
@@ -37,12 +26,51 @@ const RegisterForm = () => {
 		};
 	}, []);
 
+	const onRegister = async (event) => {
+		event.preventDefault();
+
+		try {
+			const response = await fetch("http://localhost:5000/users", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(formData),
+			});
+
+			if (response.ok) {
+				setTimeout(() => {
+					ToastOK("Usuario", "registrado");
+					navigate("/login");
+				}, 1000);
+			} else {
+				const data = await response.json();
+
+				if (data.message === "El correo ya está registrado.") {
+					ToastErrorGenerico(data.message);
+				} else {
+					ToastErrorGenerico(data.message || "Error en el registro.");
+				}
+			}
+		} catch (error) {
+			console.error("Error al registrar:", error);
+			ToastError("Error en el registro. Inténtalo de nuevo más tarde.");
+		}
+	};
+
+	const handleChange = (event) => {
+		setFormData({
+			...formData,
+			[event.target.name]: event.target.value,
+		});
+	};
+
 	return (
 		<>
 			<section className="vh-100 gradient-custom">
 				<form onSubmit={onRegister}>
 					<div className="container vh-100">
-						<div className="row d-flex justify-content-center align-items-center pt-5">
+						<div className="row d-flex justify-content-center align-items-center">
 							<div className="col-12 col-md-8 col-lg-6 col-xl-5">
 								<div
 									className="card bg-dark text-white mt-5"
@@ -58,8 +86,8 @@ const RegisterForm = () => {
 													type="nombre"
 													className="form-control form-control-lg"
 													name="nombre"
-													value={nombre}
-													onChange={onInputChange}
+													value={formData.nombre}
+													onChange={handleChange}
 													required
 												/>
 												<div className="row align-items-start">
@@ -74,8 +102,8 @@ const RegisterForm = () => {
 													type="apellido"
 													className="form-control form-control-lg"
 													name="apellido"
-													value={apellido}
-													onChange={onInputChange}
+													value={formData.apellido}
+													onChange={handleChange}
 												/>
 												<div className="row align-items-start">
 													<label className="form-label text-start">
@@ -85,12 +113,37 @@ const RegisterForm = () => {
 											</div>
 
 											<div className="form-outline form-white mb-4">
+												<select
+													className="form-select form-control-lg"
+													name="rol"
+													id="rol"
+													value={formData.rol}
+													onChange={handleChange}>
+													<option value="">
+														Elije un Rol
+													</option>
+
+													<option value="Usuario">
+														Usuario
+													</option>
+													<option value="Administrador">
+														Administrador
+													</option>
+												</select>
+												<div className="row align-items-start">
+													<label className="form-label text-start">
+														Rol
+													</label>
+												</div>
+											</div>
+
+											<div className="form-outline form-white mb-4">
 												<input
 													type="email"
 													className="form-control form-control-lg"
-													value={email}
 													name="email"
-													onChange={onInputChange}
+													value={formData.email}
+													onChange={handleChange}
 													required
 												/>
 												<div className="row align-items-start">
@@ -104,9 +157,9 @@ const RegisterForm = () => {
 												<input
 													type="password"
 													className="form-control form-control-lg"
-													value={password}
 													name="password"
-													onChange={onInputChange}
+													value={formData.password}
+													onChange={handleChange}
 													required
 												/>
 												<div className="row align-items-start">
@@ -115,6 +168,7 @@ const RegisterForm = () => {
 													</label>
 												</div>
 											</div>
+
 											<button
 												className="btn btn-outline-light btn-lg px-5"
 												type="submit">
@@ -128,6 +182,7 @@ const RegisterForm = () => {
 					</div>
 				</form>
 			</section>
+			<Toaster />
 		</>
 	);
 };

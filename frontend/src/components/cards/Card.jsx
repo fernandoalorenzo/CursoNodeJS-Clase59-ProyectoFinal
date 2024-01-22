@@ -4,8 +4,9 @@
 import React, { useState } from "react";
 import ModalInfo from "./CardModalInfo";
 
-const Card = ({ titulo, imagen, descripcion, _id , fetchData }) => {
+const Card = ({ titulo, imagen, descripcion, _id , fetchData, usuario }) => {
 	const [modalInfo, setModalInfo] = useState(false);
+	
 	const maxDescriptionLength = 100;
 
 	return (
@@ -47,6 +48,7 @@ const Card = ({ titulo, imagen, descripcion, _id , fetchData }) => {
 					titulo={titulo}
 					descripcion={descripcion}
 					imagen={imagen}
+					usuario={usuario}
 					onClose={() => setModalInfo(false)}
 					fetchData={fetchData}
 				/>

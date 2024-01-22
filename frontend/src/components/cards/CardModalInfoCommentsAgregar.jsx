@@ -2,43 +2,40 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 
 const CardModalAgregar = ({ onSave, onCancel }) => {
-	const [usuario, setUsuario] = useState("");
 	const [comentario, setComentario] = useState("");
 	const [isGuardarDisabled, setGuardarDisabled] = useState(true);
+
+	const user = JSON.parse(localStorage.getItem("user"));
+	const userId = user.id;
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
 
-		// Actualizar el estado segun el campo que cambio
-		if (name === "usuario") {
-			setUsuario(value);
-		} else if (name === "comentario") {
-		setComentario(value);
+		if (name === "comentario") {
+			setComentario(value);
 		}
 	};
 
 	useEffect(() => {
 		// Verificar si los campos no estan vacios despues de actualizar estados
 		setGuardarDisabled(
-			usuario.trim() === "" || comentario.trim() === ""
+			comentario.trim() === ""
 		);
-	}, [usuario, comentario]);
+	}, [comentario]);
 	
 	const handleSave = () => {
 		// Validar que los campos no esten vacios
-		if (usuario.trim() === "" || comentario.trim() === "") {
-			alert("Por favor, complete ambos campos.");
+		if (comentario.trim() === "") {	
+			alert("El comentario no puede estar vacío.");
 			return;
 		}
 
 		// Pasando datos del nuevo comentario
-		onSave({ usuario, comentario });
+		onSave({ userId, comentario });
 
 		// Limpiar campos y cerrar modal
-		setUsuario("");
 		setComentario("");
 		setGuardarDisabled(true);
 	};
@@ -59,21 +56,6 @@ const CardModalAgregar = ({ onSave, onCancel }) => {
 							onClick={onCancel}></button>
 					</div>
 					<div className="modal-body">
-						<div className="form-group mb-4">
-							<div className="row align-items-start">
-								<label className="col-auto form-label">
-									Usuario
-								</label>
-							</div>
-
-							<input
-								type="text"
-								className="form-control"
-								name="usuario"
-								value={usuario}
-								onInput={handleInputChange}
-							/>
-						</div>
 						<div className="form-group mb-4">
 							<div className="row align-items-start">
 								<label className="col-auto form-label">

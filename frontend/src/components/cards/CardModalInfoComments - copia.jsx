@@ -15,7 +15,6 @@ const CardModalInfoComments = ({ postId }) => {
 	const [showAgregarModal, setShowAgregarModal] = useState(false);
 
 	useEffect(() => {
-		// CARGAMOS LOS COMENTARIOS AL CARGAR EL MODAL
 		const fetchComentarios = async () => {
 			try {
 				const response = await fetch(
@@ -26,56 +25,53 @@ const CardModalInfoComments = ({ postId }) => {
 				}
 				const data = await response.json();
 
-				const comentariosPromises = data.comentarios.map(
-					async (comentario) => {
-						// Obtener el nombre del usuario en cada comentario
-						const userName = await fetchUserName(
-							comentario.usuario
-						);
-						return {
-							...comentario,
-							userName,
-						};
-					}
-				);
-
-				const comentariosConUsuario = await Promise.all(
-					comentariosPromises
-				);
-
-				setComentarios(comentariosConUsuario);
-
+				setComentarios(data.comentarios);
 			} catch (error) {
 				console.error("Error al intentar obtener comentarios: ", error);
 			}
 		};
-
-	// BUSCAMOS EL NOMBRE DEL USUARIO EN LA BASE DE DATOS
-		const fetchUserName = async (userId) => {
-			try {
-				const response = await fetch(
-					`http://127.0.0.1:5000/users/${userId}`
-				);
-				if (!response.ok) {
-					throw new Error(`HTTP error! Status: ${response.status}`);
-				}
-				const user = await response.json();
-				return `${user.nombre} ${user.apellido}`;
-			} catch (error) {
-				console.error("Error al obtener el nombre del usuario: ", error);
-				return "Usuario Desconocido";
-			}
-			
-		};
-
 		fetchComentarios();
 	}, [postId]);
 
-	// VERIFICAMOS SI EL COMENTARIO PERTENECE AL USUARIO LOGUEADO ACTUALMENTE
-	const isCurrentUserComment = (userId) => {
-		const currentUser = localStorage.getItem("user");
-		const currentUserId = JSON.parse(currentUser).id;
-		return currentUserId === userId;
+	const fetchUserName = async (userId) => {
+		console.log("userId: ", userId);
+		try {
+			const response = await fetch(
+				`http://127.0.0.1:5000/users/${userId}`
+			);
+			if (!response.ok) {
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
+			const user = await response.json();
+			return `${user.nombre} ${user.apellido}`;
+		} catch (error) {
+			console.error(
+				"Error al obtener el nombre del usuario: ",
+				error
+			);
+			return "Usuario Desconocido";
+		}
+	};
+
+	const renderComments = async () => {
+		const renderedComments = [];
+		for (const comentario of comentarios) {
+			const userName = await fetchUserName(comentario.usuario);
+			renderedComments.push(
+				<div
+					className="card border border-primary mb-4"
+					key={comentario._id}>
+					<div className="card-header text-start ps-1">
+						<b className="text-success">{userName}</b> comentó:
+					</div>
+					<div className="card-body text-start p-2 fs-6 fst-italic">
+						{comentario.contenido}
+					</div>
+					{/* ... (otras partes del comentario) */}
+				</div>
+			);
+		}
+		return renderedComments;
 	};
 
 	// ------------------ Desde aca, todo para editar el comentario ------------------
@@ -271,121 +267,9 @@ const CardModalInfoComments = ({ postId }) => {
 				</div>
 			</div>
 
-			{comentarios.map((comentario) => {
-				const currentUserComment = isCurrentUserComment(
-						comentario.usuario
-					);
+			{/* {comentarios.map(async (comentario) => */}
+			{renderComments()}
 
-				return (
-					<div
-						className="card border border-primary mb-4"
-						key={comentario._id}>
-						{/* SI HAY ID DE COMENTARIO, MUESTRA LOS INPUTS PARA MODIFICAR EL COMENTARIO */}
-						{editCommentId === comentario._id ? (
-							<div className="card-body">
-								<textarea
-									rows="3"
-									value={comentario.contenido}
-									className="form-control mb-2"
-									onChange={(e) =>
-										handleEditContentChange(
-											comentario._id,
-											e
-										)
-									}></textarea>
-								<button
-									className="btn btn-sm btn-success me-2"
-									onClick={() =>
-										handleSaveEdit(
-											comentario.contenido,
-											comentario._id
-										)
-									}
-									/* SI EL COMENTARIO ESTA VACIO NO SE PUEDE GUARDAR */
-									disabled={!comentario.contenido.trim()} // Deshabilitar si el contenido está vacío
-								>
-									Guardar
-								</button>
-								<button
-									className="btn btn-sm btn-secondary"
-									onClick={handleCancelEdit}>
-									Cancelar
-								</button>
-							</div>
-						) : (
-							/* SI NO HAY ID DE COMENTARIO SELECCIONADO, MUESTRA LOS COMENTARIOS DEL POSTEO */
-							<>
-								<div>
-									<div className="card-header text-start ps-1">
-										<b className="text-success">
-											{comentario.userName}
-										</b>{" "}
-										comentó:
-									</div>
-									<div className="card-body text-start p-2 fs-6 fst-italic">
-										{comentario.contenido}
-									</div>
-									<div className="card-footer p-1">
-										<div className="row justify-content-between">
-											<div className="col align-items-start">
-												<p className="text-muted text-start align-items-start">
-													Publicado el{" "}
-													{comentario.fecha &&
-														comentario.fecha.substr(
-															8,
-															2
-														) +
-															"/" +
-															comentario.fecha.substr(
-																5,
-																2
-															) +
-															"/" +
-															comentario.fecha.substr(
-																0,
-																4
-															)}
-												</p>
-											</div>
-											<div className="col-3 align-items-end justify-content-end me-0">
-												<button
-													className="btn btn-sm btn-warning me-2"
-													onClick={() =>
-														handleEdit(
-															comentario._id
-														)
-													}
-													title="Editar comentario"
-													// SI EL COMENTARIO NO ES DEL USUARIO LOGUEADO, OCULTA EL BOTON
-													hidden={
-														!currentUserComment
-													}>
-													<i className="fa-solid fa-regular fa-edit"></i>
-												</button>
-												<button
-													className="btn btn-sm btn-danger"
-													onClick={() =>
-														handleShowDeleteModal(
-															comentario._id
-														)
-													}
-													title="Eliminar comentario"
-													// SI EL COMENTARIO NO ES DEL USUARIO LOGUEADO, OCULTA EL BOTON
-													hidden={
-														!currentUserComment
-													}>
-													<i className="fa-regular fa-trash-can"></i>
-												</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</>
-						)}
-					</div>
-				);
-			})
-			}
 			{deleteCommentId && (
 				<ModalDelete
 					onCancel={handleHideDeleteModal}

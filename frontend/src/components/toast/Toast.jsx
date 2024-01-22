@@ -25,3 +25,16 @@ export const ToastError = ( elemento, accion) => {
 	});
 	return <></>;
 };
+
+export const ToastErrorGenerico = (mensaje) => {
+	toast.error(mensaje, {
+		style: {
+			border: "1px solid #ff000d",
+			borderRadius: "10px",
+			background: "#333",
+			color: "#fff",
+		},
+		position: "top-right",
+	});
+	return <></>;
+};

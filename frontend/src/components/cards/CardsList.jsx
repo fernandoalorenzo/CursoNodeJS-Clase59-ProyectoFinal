@@ -28,7 +28,6 @@ const CardsList = (posts) => {
 				throw new Error(`HTTP error! Status: ${response.status}`);
 			}
 			const data = await response.json();
-			// console.log(data.data);
 			setData(data.data);
 
 			return setModalInfo(true);
@@ -113,6 +112,7 @@ const CardsList = (posts) => {
 									titulo={card.titulo}
 									descripcion={card.descripcion}
 									imagen={card.imagen}
+									usuario={card.usuario}
 									_id={card._id}
 									onInfoClick={() => setModalInfo(true)}
 									fetchData={fetchData}

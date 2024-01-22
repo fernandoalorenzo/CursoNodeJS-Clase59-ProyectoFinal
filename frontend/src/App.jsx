@@ -24,7 +24,6 @@ const App = () => {
 				<Route path="/users" element={<Users />} />
 				<Route path="/login" element={<LoginForm />} />
 				<Route path="/register" element={<RegisterForm />} />
-				{/* <Route path="/CardsList" element={<CardsList />} /> */}
 				<Route path="*" element={<NoDisponible />} />
 			</Routes>
 			<Footer />

@@ -9,6 +9,9 @@ const ModalAgregar = (props) => {
 	const [descripcion, setDescripcion] = useState("");
 	const [imagenUrl, setImagenUrl] = useState("");
 
+	const user = JSON.parse(localStorage.getItem("user"));
+	const userId = user ? user.id : null;
+
 	const handleImagenUrlChange = (event) => {
 		setImagenUrl(event.target.value);
 	};
@@ -44,6 +47,7 @@ const ModalAgregar = (props) => {
 
 	const handleGuardarPost = async () => {
 		const data = {
+			usuario: userId,
 			titulo,
 			descripcion,
 			imagen: imagenUrl
