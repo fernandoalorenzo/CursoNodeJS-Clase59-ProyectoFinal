@@ -5,6 +5,7 @@ import CardModalInfoComments from "./CardModalInfoComments";
 import ModalDelete from "./../delete/ModalConfirmDelete";
 import { Toaster } from "react-hot-toast";
 import { ToastOK } from "../toast/Toast";
+import apiConnection from "../../../../backend/functions/apiConnection";
 
 export default function Modal(props) {
 	const [modalDelete, setModalDelete] = useState(false);
@@ -19,6 +20,8 @@ export default function Modal(props) {
 
 	const [imagenUrl, setImagenUrl] = useState("");
 
+	const [userInfo, setUserInfo] = useState(null);
+
 	// VERIFICAMOS SI EL POST PERTENECE AL USUARIO LOGUEADO ACTUALMENTE
 	const [isCurrentUserPost, setIsCurrentUserPost] = useState(false);
 
@@ -28,9 +31,43 @@ export default function Modal(props) {
 		const currentUserId = JSON.parse(currentUser).id;
 		// Id de Usuario del post
 		const postUserId = props.usuario;
-		
+
 		// VERIFICAMOS SI EL POST PERTENECE AL USUARIO LOGUEADO ACTUALMENTE (id de usuario logueado vs id de usuario del post)
 		setIsCurrentUserPost(currentUserId === postUserId);
+
+		// Obtenemos la información del usuario que creó el post
+		const fetchUserInfo = async (postUserId) => {
+			try {
+				const endpoint = "http://127.0.0.1:5000/users/";
+				const direction = props.usuario;
+				const method = "GET";
+				const body = false;
+				const headers = {
+					"Content-Type": "application/json",
+					Authorization: localStorage.getItem("token"),
+				};
+
+				const userData = await apiConnection(
+					endpoint,
+					direction,
+					method,
+					body,
+					headers
+				);
+
+				setUserInfo(userData);
+			} catch (error) {
+				console.error(
+					"Error al intentar obtener datos del usuario: ",
+					error
+				);
+			}
+		};
+
+		// VERIFICAMOS SI EL POST PERTENECE AL USUARIO LOGUEADO ACTUALMENTE
+		if (postUserId) {
+			fetchUserInfo();
+		}
 	}, [props.usuario]);
 
 	const handleImagenUrlChange = (event) => {
@@ -47,24 +84,26 @@ export default function Modal(props) {
 
 	const handleSaveClick = async () => {
 		try {
-			const response = await fetch(
-				`http://127.0.0.1:5000/posts/${props._id}`,
-				{
-					method: "PUT",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						titulo: editedTitle,
-						descripcion: editedDescription,
-						imagen: editedImage,
-					}),
-				}
-			);
+			const endpoint = "http://127.0.0.1:5000/posts/";
+			const direction = props._id;
+			const method = "PUT";
+			const body = {
+				titulo: editedTitle,
+				descripcion: editedDescription,
+				imagen: editedImage,
+			};
+			const headers = {
+				"Content-Type": "application/json",
+				Authorization: localStorage.getItem("token"),
+			};
 
-			if (!response.ok) {
-				throw new Error(`HTTP error! Status: ${response.status}`);
-			}
+			await apiConnection(
+				endpoint,
+				direction,
+				method,
+				body,
+				headers
+			);
 
 			setIsEditing(false);
 
@@ -72,6 +111,7 @@ export default function Modal(props) {
 			ToastOK("Posteo", "modificado");
 
 			props.fetchData();
+
 		} catch (error) {
 			console.error(
 				"Error al intentar guardar las modificaciones: ",
@@ -82,10 +122,23 @@ export default function Modal(props) {
 
 	const handleDelete = async () => {
 		try {
-			await fetch(`http://127.0.0.1:5000/posts/${props._id}`, {
-				method: "DELETE",
-			});
+			const endpoint = "http://127.0.0.1:5000/posts/";
+			const direction = props._id;
+			const method = "DELETE";
+			const body = false;
+			const headers = {
+				"Content-Type": "application/json",
+				Authorization: localStorage.getItem("token"),
+			};
 
+			await apiConnection(
+				endpoint,
+				direction,
+				method,
+				body,
+				headers
+			);
+				
 			setModalDelete(false);
 
 			props.onClose();
@@ -124,6 +177,22 @@ export default function Modal(props) {
 				<div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 					<div className="modal-content">
 						<div className="card-header">
+							{userInfo && (
+								<div className="col text-start font-italic">
+									<h5 style={{ fontStyle: "italic" }}>
+										{userInfo.nombre}{" "}
+										<span
+											className="text-muted"
+											style={{
+												fontStyle: "normal",
+												fontWeight: "normal",
+												fontSize: "1rem",
+											}}>
+											posteó
+										</span>
+									</h5>
+								</div>
+							)}
 							<div className="row">
 								<div className="col m-0">
 									{!isEditing ? (

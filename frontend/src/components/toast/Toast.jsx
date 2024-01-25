@@ -8,7 +8,7 @@ export const ToastOK = ( elemento, accion ) => {
 			background: "#333",
 			color: "#fff",
 		},
-		position: "top-right",
+		position: "top-center",
 	});
 	return <></>;
 };
@@ -21,7 +21,7 @@ export const ToastError = ( elemento, accion) => {
 			background: "#333",
 			color: "#fff",
 		},
-		position: "top-right",
+		position: "top-center",
 	});
 	return <></>;
 };
@@ -34,7 +34,7 @@ export const ToastErrorGenerico = (mensaje) => {
 			background: "#333",
 			color: "#fff",
 		},
-		position: "top-right",
+		position: "top-center",
 	});
 	return <></>;
 };

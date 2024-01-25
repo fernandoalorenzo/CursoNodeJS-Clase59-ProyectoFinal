@@ -19,10 +19,6 @@ const userSchema = mongoose.Schema(
 		apellido: {
 			type: String,
 		},
-		rol: {
-			type: String,
-			required: true,
-		},
 	},
 	{
 		timestamps: true,
@@ -38,8 +34,8 @@ userSchema.pre("save", async function (next) {
 		}
 
 		// Encriptar la contraseña antes de guardarla en la base de datos
-		const salt = bcrypt.genSalt(10);
-		const hashedPassword = bcrypt.hash(this.password, salt);
+		const salt = await bcrypt.genSalt(10);
+		const hashedPassword = await bcrypt.hash(this.password, salt);
 		this.password = hashedPassword;
 
 		next();

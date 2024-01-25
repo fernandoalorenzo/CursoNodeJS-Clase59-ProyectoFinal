@@ -41,7 +41,6 @@ const LoginForm = () => {
 				// Guarda la info de usuario en localStorage
 				localStorage.setItem("token", token);
 				localStorage.setItem("user", JSON.stringify(user));
-				// console.log("Usuario autenticado:", user);
 				navigate("/");
 			} else {
 				const data = await response.json();
@@ -82,7 +81,7 @@ const LoginForm = () => {
 						<div className="row d-flex justify-content-center align-items-center pt-5">
 							<div className="col-12 col-md-8 col-lg-6 col-xl-5">
 								<div
-									className="card bg-dark text-white mt-5"
+									className="card bg-dark text-white mt-2"
 									style={{ borderRadius: "1rem" }}>
 									<div className="card-body p-4 text-center p-0">
 										<div className="mb-md-4">
